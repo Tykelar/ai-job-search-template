@@ -154,8 +154,8 @@ If `pdftotext` is missing, `/apply` skips the mechanical check with a warning an
 ## 2. Fork and clone
 
 ```bash
-gh repo fork MadsLorentzen/ai-job-search --clone
-cd ai-job-search
+gh repo fork Tykelar/ai-job-search-template --clone
+cd ai-job-search-template
 ```
 
 Or manually: fork on GitHub, then clone your fork.
