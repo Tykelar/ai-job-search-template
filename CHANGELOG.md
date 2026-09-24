@@ -77,6 +77,22 @@ per-file diff commands.
   `docs/port-logs/part-00-baseline.txt` and installed the `handoff` skill
   (`.claude/skills/handoff`, `.agents/skills/handoff`) so each part of the upstream
   port can close out with a handoff document. See `docs/upstream-port-plan.md`.
+- **Part 1 - portal CLIs: wholesale upstream refresh** (commit `9e12980`). All six
+  portal CLIs (`freehire`, `jobbank`, `jobdanmark`, `jobindex`, `jobnet`, `linkedin`)
+  replaced with `upstream/master` under `.agents/skills/` (Method A). Brings flag
+  validation (unknown/single-dash/fractional flags now exit 1 with `UNKNOWN_FLAG` /
+  `BAD_ARG` instead of being silently dropped), 429/5xx retry with backoff, request
+  timeouts, detail/posted-date URL normalization, closed-posting detection, detail
+  fallbacks, and the added `/scrape` contract fields, with their fixture tests
+  (139 -> 312 CLI tests). Upstream refs: `3bfd525cc`, `fa8db56a9`, `c42806674`,
+  `79cd383e5`, `6ef295bf7`, `3d296448b` (CLI half), `a30691213` (drops `applyUrl`),
+  `c85640e30`, `b067928da`, `c7bd494f1`, `2edf8c41f`, `56f679e5c`, `17bc69869`,
+  `04186b9a3`, `df7919cdf`, `7aba0b4a9`, `c844359ed`, `dab215073`, `c2cd71dde`,
+  `f8c606fb3`, `bcba687fb`, `ba9b1d837`, `0883958d4`, `48965960d`, `71674d022`,
+  `dd02c8248`. The take also carries `cffacfd` (#288) for the portal `SKILL.md`
+  frontmatter: the four Danish demo portals now ship `enabled: false`, which matches
+  this fork's Portuguese market (`linkedin`/`freehire` stay enabled). The `setup.md`
+  half of `cffacfd` is a CUSTOM reconcile and lands in Part 11.
 
 ## [1.0.0] - 2026-07-22
 

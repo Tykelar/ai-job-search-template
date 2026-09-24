@@ -92,7 +92,7 @@ fix).
 | Part | Title | Status | Branch / commit | Notes |
 |---|---|---|---|---|
 | 0 | Preflight & handoff setup | ☑ done | merge `4b89ad6` into `personal` (part branch `port/part-00-preflight` @ `cfbc5fd`) | Baseline all-green (no pre-existing failures); `handoff` skill installed; no upstream code ported. |
-| 1 | Portal CLIs — wholesale refresh | ☐ todo | | |
+| 1 | Portal CLIs — wholesale refresh | ☑ done | `port/part-01-portal-clis` @ `9e12980` | Method A take of `.agents/skills/`: 64 files, 6/6 CLIs green (312 tests, no network). Also ported `cffacfd` (#288) frontmatter — the four Danish portals now ship `enabled: false` (correct for this fork's PT market). `cffacfd`'s `setup.md` half deferred to Part 11 (now in its table). |
 | 2 | Cross-portal contract, settings, CI discovery | ☐ todo | | |
 | 3 | Salary tooling (+ UTF-8 stdout) | ☐ todo | | |
 | 4 | PDF tooling & ATS verification stack | ☐ todo | | |
@@ -165,8 +165,15 @@ portal `SKILL.md`. It does **not** touch `.claude/skills/job-scraper/SKILL.md`
 (handled in Part 6) — upstream `3d296448b` also edits that file; its CLI half lands
 here, its spec half in Part 6.
 
-**Fork adaptation:** none expected — the fork has no intentional CLI changes.
-`package.json` dependency versions move to upstream's; run `bun install` per CLI.
+**Fork adaptation:** the CLI `src/`/`tests/` had no fork changes, so they are an exact
+upstream take. One non-CLI divergence surfaced during the take: the six `SKILL.md`
+frontmatter blocks were a *pre-`cffacfd` older copy* (the four Danish portals were
+`enabled: true`). Upstream `cffacfd` (#288) ships them `enabled: false` so a non-Danish
+user's `/scrape` does not spend tokens on irrelevant boards. The fork's candidate market
+is Portugal, so the upstream value is the correct one — accepted, no fork override.
+`cffacfd` also edits `.claude/commands/setup.md`, which is CUSTOM; that half is listed
+in Part 11 and must not be lost. `package.json` dependency versions were already at
+upstream's, so `bun.lock` is unchanged.
 
 **Verify**
 ```bash
@@ -466,6 +473,7 @@ the fork's cold-posting "Ungated" shortlist gate at Step 1c, not replace it.
 | `/reset profile` clears `04-job-evaluation.md`; documents covers `documents/postings/` | `d82df2fe5`, `2036b9704` | `reset.md` | A (older copy) — then **add the fork-only sweep targets**: `config/gates.md` gate table and the generated `search-queries.md` (template stays) |
 | `/setup` fills `05`/`06` contact blocks (Step 3.5/3.6) | `e6f6f4e32` | `setup.md` | C |
 | function-based (not title-based) matching | `5c423b406` | `setup.md`, `04-job-evaluation.md` | C |
+| Danish demo portals ship disabled; `/setup` enables them for Danish-market users | `cffacfd` | `setup.md` | C — **the SKILL.md half was already taken in Part 1**; reconcile `setup.md` to match (do not re-enable the four Danish portals for this PT fork) |
 | `/upskill` blank `fit_rating` fallback | `0e054f16e` | `.claude/skills/upskill/SKILL.md` | C |
 | `$SCRATCHPAD` fail-loud | `ab5732138` | `09-web-research.md` | A |
 | invited-PR reservation | `2ea29b09b` | `CONTRIBUTING.md` | A |
