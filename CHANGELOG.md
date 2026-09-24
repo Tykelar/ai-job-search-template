@@ -136,8 +136,10 @@ per-file diff commands.
   template-mechanical token (`Tech stack:`, `Dear`). Fork deviations from the
   upstream A files: the `verify_layout.py` docstring escapes `\hypersetup` (no
   SyntaxWarning), a missing `pdfinfo` no longer fails a text-only check on the
-  Git-for-Windows xpdf `pdftotext` path (`--pages` still fails loudly), and
-  `tests/test_gate_configuration.py` also asserts `verify_pdf.py`. Upstream
+  Git-for-Windows xpdf `pdftotext` path (`--pages` still fails loudly),
+  `tests/test_gate_configuration.py` also asserts `verify_pdf.py`, and
+  `tests/test_latex_guidance.py` strips `%` comments before matching (the
+  template example documents the pitfall in a comment). Upstream
   refs: `cbd8a991a`, `1b65f7198`, `dea8140db`, `75c15eeec`, `73d52e099`,
   `b2545d512`, `c696b60b7`, `ba4f2397a` (the `07cec1f22` sentinel half is
   Part 13).
