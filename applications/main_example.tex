@@ -1,0 +1,275 @@
+%% ============================================================================
+%% MASTER CV (compact style) - [YOUR_NAME]
+%%
+%% This file is the FULL master content bank (applications/master_cv.md) rendered
+%% in the compact LaTeX style. It is the LaTeX skeleton AND the verbatim
+%% content source for tailored CVs.
+%%
+%% HOW TO BUILD A TAILORED CV (verbatim selection):
+%%   1. Copy this file to applications/<NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.tex
+%%   2. SELECT + REORDER: keep the blocks relevant to the role, delete the rest,
+%%      reorder within each section. Content is verbatim-FIRST: projects,
+%%      education lines, and headers stay character-for-character.
+%%      Experience bullets may be LIGHTLY rephrased when it genuinely improves
+%%      role fit (tightening, aligning to the posting's terminology), but facts,
+%%      metrics, and scope stay exactly the master's - no new claims, no
+%%      escalated numbers, no merged achievements. Verbatim stays the default.
+%%   2a. TWO surfaces are composed per role, never copied: the About Me
+%%      paragraph (fully generative) and the CORE COMPETENCIES section (5-7
+%%      \cvcomp bullets written for THIS posting). Core Competencies REPLACES
+%%      the Skills bank below - a tailored CV prints Core Competencies and
+%%      deletes \section{Skills} entirely. Every tool, method, and metric named
+%%      in a competency bullet must trace to this master or to the candidate
+%%      profile; the composing, labelling, and ordering are what is free.
+%%   2b. EVERY project entry carries a mandatory one-line "Tech stack:" subtitle
+%%      (\cvproject arg 2). Stacks trace to this master's own stack line, trimmed
+%%      to the most role-relevant items so the line never wraps. Keep it under
+%%      ~95 characters; drop items rather than let it run to two lines.
+%%      Never repeat stack items in the project title or description.
+%%   2c. SELECTED PROJECTS closes with a mandatory one-line \cvmoreprojects
+%%      "Also built:" catch-all naming the master projects that were cut, so the
+%%      selection reads as a selection rather than the whole inventory.
+%%   3. Keep the \newpage before CORE COMPETENCIES: tailored CVs are exactly
+%%      2 pages - page 1 = About Me / Education / Work Experience / Languages,
+%%      page 2 = Core Competencies / Selected Projects / Other Relevant
+%%      Information. There is no standalone References section: its line is
+%%      the mandatory first bullet of Other Relevant Information.
+%%   4. The About Me paragraph must END with the portfolio sentence:
+%%      Get to know me better \href{<your portfolio URL>}{here}!
+%%      Delete the sentence if you have no portfolio.
+%%   5. Self-description in the About Me opening should default to
+%%      [YOUR_PREFERRED_SELF_DESCRIPTION] - pick a variant that fits the posting
+%%      without overstating. Respect any framing-suppression rule configured in
+%%      .claude/skills/job-application-assistant/03-writing-style.md.
+%%
+%% This master compiles to several pages by design (it is the full bank).
+%% Only tailored CVs have the 2-page rule.
+%%
+%% SETUP: /setup replaces the bracketed placeholders in this file with your
+%% actual details. Placeholders in LIVE CODE use spaces, not underscores, so the
+%% file compiles before setup runs ([YOUR_NAME] with an underscore appears only
+%% in comments and metadata, where LaTeX treats it as safe text).
+%%
+%% Compile with lualatex (fontspec + system Carlito font):
+%%   cd applications && lualatex -interaction=nonstopmode -output-directory=<NN>_<company>_<role> <NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.tex
+%% ============================================================================
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,left=2.0cm,right=2.0cm,top=1.6cm,bottom=1.7cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Carlito}   % metric-compatible Calibri clone; clean ATS text layer
+\usepackage{xcolor}
+\definecolor{cvblue}{HTML}{2E74B5}   % Word heading blue
+\definecolor{cvdark}{HTML}{262626}   % near-black for the contact line
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{needspace}
+\usepackage{fontawesome5}   % LinkedIn/GitHub/globe brand glyphs for the contact line
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=cvblue,
+    linkcolor=cvblue,
+    pdftitle={[YOUR_NAME] - CV},
+    pdfauthor={[YOUR_NAME]},
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\emergencystretch=1em
+\linespread{1.04}
+\frenchspacing
+
+% Section heading: ALL-CAPS bold blue with a thin full-width rule hugging the text
+\titleformat{\section}
+  {\color{cvblue}\bfseries\fontsize{11}{13}\selectfont}
+  {}{0pt}{\MakeUppercase}
+  [\vspace{-10pt}{\color{cvblue!55}\rule{\textwidth}{0.5pt}}]
+\titlespacing*{\section}{0pt}{8pt}{0pt}
+
+% One-line work header: \cvjob{Job Title, Company}{Mon YYYY - Mon YYYY}
+\newcommand{\cvjob}[2]{\needspace{4\baselineskip}\vspace{3pt}{\bfseries #1 \textbar{} #2\par}\vspace{-2pt}}
+% Optional italic context line directly beneath a work header
+\newcommand{\cvcontext}[1]{{\itshape\small\hspace{0.3em}#1\par}\vspace{-3pt}}
+% One-line education entry: \cvedu{Degree}{Institution}{Mon YYYY - Mon YYYY}
+\newcommand{\cvedu}[3]{{\bfseries #1} \textbar{} #2 \textbar{} #3\par}
+% Optional italic thesis/final-project line directly beneath an education entry
+\newcommand{\cvedusub}[1]{\vspace{-4pt}{\itshape\small\hspace{0.3em}#1\par}}
+% Bare blue separator rule (used where a section has no heading, e.g. above About Me)
+\newcommand{\cvrule}{\par\vspace{2pt}{\color{cvblue!55}\rule{\textwidth}{0.5pt}}\par}
+% Skills row: \cvskill{Category}{item · item · item}
+% MASTER-ONLY in tailored CVs: these rows are the evidence bank Core Competencies
+% is composed from, not a section a tailored CV prints.
+\newcommand{\cvskill}[2]{\par{\bfseries #1:} #2\par}
+% Core-competency bullet: \cvcomp{Label}{Concrete items, then what it buys the role.}
+% Used INSIDE an itemize. Composed per role - 5-7 bullets, label carries the
+% posting's own core term wherever that is truthful.
+\newcommand{\cvcomp}[2]{\item {\bfseries #1:} #2}
+% Catch-all closing line for Selected Projects: \cvmoreprojects{short list. Portfolio link.}
+% ONE rendered line (two at the absolute most); names only master projects that
+% were not selected above.
+\newcommand{\cvmoreprojects}[1]{\needspace{2\baselineskip}\vspace{2pt}{\bfseries Also built:} #1\par}
+% Project entry: \cvproject{Title}{Tech stack}{Description}
+% The tech-stack line is MANDATORY and must stay on ONE line (keep it under ~95
+% characters including the "Tech stack: " label). Separate items with " · ".
+% Because the stack line carries the tooling, the title and description must NOT
+% repeat it - no "(Python + Ollama)" in the title, no "built with X, Y, Z" prose.
+\newcommand{\cvproject}[3]{\needspace{4\baselineskip}\vspace{2pt}{\bfseries #1}\par\vspace{-4pt}{\itshape\small Tech stack: #2\par}\vspace{-4pt}#3\par}
+
+% Compact bullet list
+\setlist[itemize]{label=\textbullet,leftmargin=1.15em,itemsep=1.5pt,parsep=0pt,topsep=2pt,partopsep=0pt}
+
+\begin{document}
+
+% ============================================================
+%   HEADER  (fixed contact line; no headline)
+% ============================================================
+
+{\fontsize{20}{24}\selectfont\bfseries\color{cvblue}[Your Full Name]\par}
+\vspace{1pt}
+{\bfseries\color{cvdark}[Nationality] \textbar{} [+00 000 000 000] \textbar{} your.email@example.com \textbar{} \href{https://your-portfolio.example.com/}{\faGlobe\;your-portfolio.example.com} \textbar{} \href{https://www.linkedin.com/in/your-profile}{\faLinkedin\;your-profile} \textbar{} \href{https://github.com/your-username}{\faGithub\;your-username}\par}
+
+% ============================================================
+%   ABOUT ME  (no heading - separator rule only; the only fully
+%   generative content in a tailored CV)
+% ============================================================
+
+\cvrule
+
+[2-4 sentence summary]: who you are professionally, the throughline of your experience, and your strongest evidence of it. Lead with the most role-relevant point and close with the broader profile as context. End with the portfolio sentence: Get to know me better \href{https://your-portfolio.example.com}{here}!
+
+% ============================================================
+%   EDUCATION  (one bold line each + optional thesis/final-project
+%   sub-line; full project descriptions still live in Projects)
+% ============================================================
+
+\section{Education}
+
+\cvedu{[Degree]}{[Institution]}{Sep 20XX - Jul 20XX}
+\cvedusub{Thesis: [Thesis or final-project title] ([grade])}
+\cvedu{[Degree]}{[Institution]}{Sep 20XX - Jul 20XX}
+\cvedusub{Final Project: [Final-project title] ([grade])}
+%% Add or delete \cvedu/\cvedusub pairs as needed; early or optional entries can
+%% stay off tailored CVs unless the posting calls for them.
+
+% ============================================================
+%   WORK EXPERIENCE  (one block per role, most recent first.
+%   Tailored CVs select 5-6 bullets from the most recent role,
+%   3-4 from the second, 2-3 from earlier roles.)
+% ============================================================
+
+\section{Work Experience}
+
+\cvjob{[Job Title], [Company]}{Mon 20XX - Mon 20XX}
+\cvcontext{[One-line company/product context - what the company does and at what scale.]}
+\begin{itemize}
+\item [Achievement or responsibility bullet, quantified wherever possible.]
+\item [Achievement or responsibility bullet.]
+\item [Achievement or responsibility bullet.]
+\end{itemize}
+
+\cvjob{[Job Title], [Company]}{Mon 20XX - Mon 20XX}
+\cvcontext{[One-line company/product context.]}
+\begin{itemize}
+\item [Achievement or responsibility bullet.]
+\item [Achievement or responsibility bullet.]
+\end{itemize}
+
+\cvjob{[Earlier Job Title], [Company]}{Mon 20XX - Mon 20XX}
+\begin{itemize}
+\item [Achievement or responsibility bullet.]
+\item [Achievement or responsibility bullet.]
+\end{itemize}
+
+% ============================================================
+%   LANGUAGES  (one line, closes page 1 in tailored CVs)
+% ============================================================
+
+\section{Languages}
+
+[Language]: [Level] · [Language]: [Level] · [Language]: [Level]
+
+% ============================================================
+%   PAGE BREAK - tailored CVs keep this so page 2 = Core Competencies onward
+% ============================================================
+\newpage
+
+% ============================================================
+%   CORE COMPETENCIES  (COMPOSED PER ROLE - the bullets below are a
+%   WORKED EXAMPLE, NOT content to copy. A tailored CV rewrites all of
+%   them for its own posting: 5-7 bullets, bold label carrying the
+%   posting's own core term where truthful, body listing concrete
+%   items drawn from the SKILLS bank below and closing with what the
+%   competency buys THIS role. Every named tool, method, and metric
+%   must trace to this master or to the candidate profile.)
+% ============================================================
+
+\section{Core Competencies}
+
+\begin{itemize}
+\cvcomp{[Competency label]}{[Concrete tools, methods, and metrics drawn from the Skills bank below, then one clause on what this buys the role.]}
+\cvcomp{[Competency label]}{[Concrete items and value clause.]}
+\cvcomp{[Competency label]}{[Concrete items and value clause.]}
+\cvcomp{[Competency label]}{[Concrete items and value clause.]}
+\cvcomp{[Competency label]}{[Concrete items and value clause.]}
+\cvcomp{[Competency label]}{[Concrete items and value clause.]}
+\end{itemize}
+
+% ============================================================
+%   SKILLS  (SOURCE POOL - the evidence bank Core Competencies is
+%   composed from. A tailored CV DELETES this whole section; it is
+%   never printed alongside Core Competencies.)
+% ============================================================
+
+\section{Skills}
+
+\cvskill{[Skill Category 1]}{[item · item · item · item] }
+\cvskill{[Skill Category 2]}{[item · item · item · item]}
+\cvskill{[Skill Category 3]}{[item · item · item · item]}
+\cvskill{[Skill Category 4]}{[item · item · item · item]}
+\cvskill{[Skill Category 5]}{[item · item · item · item]}
+\cvskill{[Tools \& Platforms]}{[tool · tool · tool · tool]}
+
+% ============================================================
+%   SELECTED PROJECTS  (always include; select 4-6 per role in
+%   tailored CVs, then close with the mandatory \cvmoreprojects
+%   "Also built:" line naming what was cut)
+% ============================================================
+
+\section{Selected Projects}
+
+\cvproject{[Project Title 1]}{[Tech stack item · item · item]}{[What the project is and what came of it - outcome, scale, or validation.]}
+
+\cvproject{[Project Title 2]}{[Tech stack item · item · item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 3]}{[Tech stack item · item · item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 4]}{[Tech stack item · item · item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 5 (optional)]}{[Tech stack item · item · item]}{[What the project is and what came of it.]}
+
+% --- Mandatory closing catch-all. In a tailored CV this line names the master
+% --- projects that did NOT make the selection above, so the section reads as a
+% --- selection. One rendered line; titles compressed to short descriptors;
+% --- never a project absent from this master.
+\cvmoreprojects{[a cut project, a second cut project, a third cut project]. More at \href{https://your-portfolio.example.com}{your-portfolio.example.com}.}
+
+% ============================================================
+%   OTHER RELEVANT INFORMATION  (closes the CV; select 2-4 of the
+%   optional bullets in tailored CVs. The references bullet is
+%   MANDATORY and always leads the section. It never prints
+%   referee names or contact details.)
+% ============================================================
+
+\section{Other Relevant Information}
+
+\begin{itemize}
+\item [YOUR REFERENCES LINE - e.g. Recommendation letter from <reference name and title>, available on request; additional references on request.]
+\item [Optional bullet: languages, certifications, volunteering, international exposure.]
+\item [Optional bullet: awards, publications, community involvement.]
+\item [Optional bullet: personal interests that genuinely add signal for this role.]
+\end{itemize}
+
+\end{document}
