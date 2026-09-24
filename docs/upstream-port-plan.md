@@ -52,6 +52,11 @@ has its own lines → **B** or **C**.
 - **Framework version markers:** if a port changes a `framework_version`-marked file,
   bump it and note it (upstream's marker values diverge from this fork's; never copy
   upstream's number blindly).
+- **Skill roots are not one namespace.** `.claude/skills/` (fork methodology and
+  workflow specs) and `.agents/skills/` (upstream's portable portal skills) are read
+  by different runtimes; never install the same skill `name` in both. Keep
+  `.agents/skills/` an upstream-only mirror so `git checkout upstream/master --
+  .agents/skills/` and future merges stay clean.
 
 ## Verification (run every part)
 
@@ -124,8 +129,11 @@ Legend: ☐ todo · ◐ in progress · ☑ done · ⚠ blocked
    a sibling project (same shape in each):
    - `C:/Users/josep/Desktop/Dev/DevPractice/.claude/skills/handoff/SKILL.md`
    - `C:/Users/josep/Desktop/Dev/Support_Ticket_assistant/.claude/skills/handoff/SKILL.md`
-   Install to `.claude/skills/handoff/SKILL.md` and `.agents/skills/handoff/SKILL.md`.
-   Commit as fork tooling.
+   Install to `.claude/skills/handoff/SKILL.md` **only** — one canonical copy. Do
+   not duplicate it under `.agents/skills/`: the two roots are read by different
+   runtimes, so a second real copy collides wherever both roots are enumerated and
+   the two copies drift. Keep `.agents/skills/` an upstream-only mirror. Commit as
+   fork tooling.
 4. Create `personal` from its current tip; confirm clean tree.
 
 **Verify:** baseline recorded; `handoff` skill loads; `git log --oneline -1`.

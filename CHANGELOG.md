@@ -75,8 +75,9 @@ per-file diff commands.
 - **Part 0 - preflight & handoff setup** (fork tooling, no upstream code ported).
   Recorded a green baseline of every verification command in
   `docs/port-logs/part-00-baseline.txt` and installed the `handoff` skill
-  (`.claude/skills/handoff`, `.agents/skills/handoff`) so each part of the upstream
-  port can close out with a handoff document. See `docs/upstream-port-plan.md`.
+  (`.claude/skills/handoff`) so each part of the upstream port can close out with a
+  handoff document. Installed once, not duplicated across skill roots — see the
+  port plan's "skill roots are not one namespace" convention. See `docs/upstream-port-plan.md`.
 - **Part 1 - portal CLIs: wholesale upstream refresh** (commit `9e12980`). All six
   portal CLIs (`freehire`, `jobbank`, `jobdanmark`, `jobindex`, `jobnet`, `linkedin`)
   replaced with `upstream/master` under `.agents/skills/` (Method A). Brings flag
