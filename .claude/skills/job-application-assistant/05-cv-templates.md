@@ -55,6 +55,15 @@ Semantic commands (defined in the master's preamble — a tailored CV never need
 \cvrule                                           % bare separator rule (used above About Me, which has no heading)
 ```
 
+### Bullets must never start with a bare `[`
+
+`\item [text]` is parsed as `\item`'s **optional label**, so the text renders in the
+left margin and clips off the page instead of appearing in the bullet. Start every
+`\item` with a word or a command (`\textbf{...}`) - never with a bare `[`. This has
+bitten the example master once; the compile-and-inspect loop below is what catches it
+(a clipped bullet shows as a fragment in `pdftotext -layout` output, e.g. `onsibility
+bullet.`).
+
 ### The mandatory project tech-stack line
 
 `\cvproject` takes **three** arguments. Argument 2 renders as an italic one-line

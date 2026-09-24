@@ -5,6 +5,11 @@
 %% in the compact LaTeX style. It is the LaTeX skeleton AND the verbatim
 %% content source for tailored CVs.
 %%
+%% The body below is a REALISTIC EXAMPLE built to mirror a filled master bank
+%% line for line in shape and density. Every bracketed token is a placeholder:
+%% /setup replaces the identity and history, and you expand the rest with your
+%% own facts and metrics. Delete any block that does not apply.
+%%
 %% HOW TO BUILD A TAILORED CV (verbatim selection):
 %%   1. Copy this file to applications/<NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.tex
 %%   2. SELECT + REORDER: keep the blocks relevant to the role, delete the rest,
@@ -42,13 +47,13 @@
 %%      without overstating. Respect any framing-suppression rule configured in
 %%      .claude/skills/job-application-assistant/03-writing-style.md.
 %%
+%% LATEX PITFALL - \item MUST NOT start with "[":  \item [text] is parsed as
+%% \item's OPTIONAL LABEL, so the text renders in the left margin and clips off
+%% the page. Always start a bullet with a word or a command (\textbf{...}),
+%% never with a bare "[".
+%%
 %% This master compiles to several pages by design (it is the full bank).
 %% Only tailored CVs have the 2-page rule.
-%%
-%% SETUP: /setup replaces the bracketed placeholders in this file with your
-%% actual details. Placeholders in LIVE CODE use spaces, not underscores, so the
-%% file compiles before setup runs ([YOUR_NAME] with an underscore appears only
-%% in comments and metadata, where LaTeX treats it as safe text).
 %%
 %% Compile with lualatex (fontspec + system Carlito font):
 %%   cd applications && lualatex -interaction=nonstopmode -output-directory=<NN>_<company>_<role> <NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.tex
@@ -129,7 +134,7 @@
 
 {\fontsize{20}{24}\selectfont\bfseries\color{cvblue}[Your Full Name]\par}
 \vspace{1pt}
-{\bfseries\color{cvdark}[Nationality] \textbar{} [+00 000 000 000] \textbar{} your.email@example.com \textbar{} \href{https://your-portfolio.example.com/}{\faGlobe\;your-portfolio.example.com} \textbar{} \href{https://www.linkedin.com/in/your-profile}{\faLinkedin\;your-profile} \textbar{} \href{https://github.com/your-username}{\faGithub\;your-username}\par}
+{\bfseries\color{cvdark}[Nationality] \textbar{} [+00 000 000 000] \textbar{} your.email@example.com \textbar{} \href{https://your-portfolio.example.com/}{\faGlobe\;[portfolio]} \textbar{} \href{https://www.linkedin.com/in/your-profile}{\faLinkedin\;[linkedin]} \textbar{} \href{https://github.com/your-username}{\faGithub\;[github]}\par}
 
 % ============================================================
 %   ABOUT ME  (no heading - separator rule only; the only fully
@@ -138,7 +143,7 @@
 
 \cvrule
 
-[2-4 sentence summary]: who you are professionally, the throughline of your experience, and your strongest evidence of it. Lead with the most role-relevant point and close with the broader profile as context. End with the portfolio sentence: Get to know me better \href{https://your-portfolio.example.com}{here}!
+[Primary degree] and [profession] who [throughline - the change you make or the thing you build]. At [most recent employer] I [most relevant achievement, ideally measurable], formalized in [thesis or flagship project]. Alongside this I [second thread of experience - founding, operations, research], and bring a [systems-level, cross-functional] perspective spanning [area 1], [area 2], and [area 3]. Get to know me better \href{https://your-portfolio.example.com}{here}!
 
 % ============================================================
 %   EDUCATION  (one bold line each + optional thesis/final-project
@@ -147,40 +152,65 @@
 
 \section{Education}
 
-\cvedu{[Degree]}{[Institution]}{Sep 20XX - Jul 20XX}
-\cvedusub{Thesis: [Thesis or final-project title] ([grade])}
-\cvedu{[Degree]}{[Institution]}{Sep 20XX - Jul 20XX}
+\cvedu{[Primary Degree]}{[Institution]}{Sep 20XX - Jul 20XX}
+\cvedusub{Thesis: [Thesis title] ([grade])}
+\cvedu{[Second Degree]}{[Institution]}{Sep 20XX - Jul 20XX}
 \cvedusub{Final Project: [Final-project title] ([grade])}
-%% Add or delete \cvedu/\cvedusub pairs as needed; early or optional entries can
-%% stay off tailored CVs unless the posting calls for them.
+\cvedu{[Optional Earlier Degree or Transfer]}{[Institution]}{Sep 20XX - Jul 20XX}
 
 % ============================================================
-%   WORK EXPERIENCE  (one block per role, most recent first.
-%   Tailored CVs select 5-6 bullets from the most recent role,
-%   3-4 from the second, 2-3 from earlier roles.)
+%   WORK EXPERIENCE  (one block per role, most recent first. Each
+%   bullet starts with a word or command - never a bare "[" - and
+%   carries a concrete tool, method, or measured outcome. Select
+%   5-6 from the most recent role, 3-4 from the second, 2-3 from
+%   earlier roles on a tailored CV.)
 % ============================================================
 
 \section{Work Experience}
 
-\cvjob{[Job Title], [Company]}{Mon 20XX - Mon 20XX}
-\cvcontext{[One-line company/product context - what the company does and at what scale.]}
+\cvjob{[Most Recent Job Title], [Company]}{Mon 20XX - Mon 20XX}
+\cvcontext{[One-line company or product context - what the company does, for whom, and at what scale.]}
 \begin{itemize}
-\item [Achievement or responsibility bullet, quantified wherever possible.]
-\item [Achievement or responsibility bullet.]
-\item [Achievement or responsibility bullet.]
+\item Built [tool, automation, or system] deployed in [context], enabling [measurable benefit] on [workflow].
+\item Led a [methodology]-driven re-engineering of [system or process], resolving [accumulated problem] and cutting [primary metric] by more than [X]\%.
+\item Redesigned [workflow or process], contributing to [X]\% [improvement in the outcome that matters most to the role].
+\item Restructured [task distribution or handovers], reducing [time or effort] by around [X]\% and eliminating duplicated work.
+\item Contributed to the architecture and testing of [product feature], helping users [outcome the feature delivers].
+\item Contributed to the architecture and testing of [second system], letting users [outcome it enables].
+\item Drove integration of [technology or practice] into [product, team, or engineering workflow].
+\item Collaborated on [specialist system or model]: [data, evaluation, or training work you did] and [what it achieved].
+\item Designed and implemented [framework or system], including reusable [components], for scalable and maintainable [capability].
+\item Integrated [automation or test suite] into [pipeline or delivery workflow], enabling fully automated [execution or verification].
+\item Led the [old tool] to [new tool] migration, including trade-off evaluation, implementation, and documentation.
+\item Standardized [naming, data, or process] conventions and introduced [approach], reducing [coupling, instability, or rework].
+\item Scripted reproducible [local or virtual environments] ([setup, rebuild, and reset]) in [scripting language] to improve developer experience.
+\item Maintained and extended [existing system]; analyzed [reports or failure patterns] to prioritize fixes.
 \end{itemize}
 
-\cvjob{[Job Title], [Company]}{Mon 20XX - Mon 20XX}
-\cvcontext{[One-line company/product context.]}
+\cvjob{[Previous Job Title], [Company]}{Mon 20XX - Mon 20XX}
+\cvcontext{[One-line company or initiative context.]}
 \begin{itemize}
-\item [Achievement or responsibility bullet.]
-\item [Achievement or responsibility bullet.]
+\item Founded [organization or initiative]: legal incorporation, administrative setup, governance structure, and ongoing compliance.
+\item Owned the full [entrepreneurial or operational] process from idea to execution with no prior institutional support.
+\item Coordinated partnerships with public and private institutions to fund and support [programmes or projects].
+\item Led [activities], [workshops], and [initiatives] for [community or audience].
+\item Organized and monitored internal procedures for consistent operational execution.
+\item Managed the full physical setup and operational launch of [space or operation].
 \end{itemize}
 
 \cvjob{[Earlier Job Title], [Company]}{Mon 20XX - Mon 20XX}
 \begin{itemize}
-\item [Achievement or responsibility bullet.]
-\item [Achievement or responsibility bullet.]
+\item Organized inventory, materials, and [logistics or storage] flows.
+\item Optimized [procedures], improving [metric] by up to [X]\%.
+\item Supported the full [operational cycle] ([picking, dispatch, transport, retrieval]); handled [specialized operational task].
+\item Performed [technical or assembly] support, including [task].
+\end{itemize}
+
+\cvjob{[Earliest Job Title], [Company], [Country]}{Mon 20XX - Mon 20XX}
+\begin{itemize}
+\item Built [databases or reports] from publicly available information for [purpose].
+\item Conducted [outreach] for partnership opportunities.
+\item Produced documentation linking [stakeholders or partners].
 \end{itemize}
 
 % ============================================================
@@ -189,7 +219,7 @@
 
 \section{Languages}
 
-[Language]: [Level] · [Language]: [Level] · [Language]: [Level]
+[Language]: [Level] · [Language]: [Level] · [Language]: [Level] · [Language]: [Level]
 
 % ============================================================
 %   PAGE BREAK - tailored CVs keep this so page 2 = Core Competencies onward
@@ -209,12 +239,12 @@
 \section{Core Competencies}
 
 \begin{itemize}
-\cvcomp{[Competency label]}{[Concrete tools, methods, and metrics drawn from the Skills bank below, then one clause on what this buys the role.]}
-\cvcomp{[Competency label]}{[Concrete items and value clause.]}
-\cvcomp{[Competency label]}{[Concrete items and value clause.]}
-\cvcomp{[Competency label]}{[Concrete items and value clause.]}
-\cvcomp{[Competency label]}{[Concrete items and value clause.]}
-\cvcomp{[Competency label]}{[Concrete items and value clause.]}
+\cvcomp{[Process \& Delivery Re-Engineering]}{[Process analysis and mapping], [workflow re-engineering], and [technical-debt diagnosis and remediation] under [methodology]. Cut [primary metric] by more than [X]\% and supported [secondary outcome].}
+\cvcomp{[AI \& Tooling Integration]}{[LLM integration] and [AI agents], [RAG design and evaluation], [framework], and [local model deployment]. Shipped [AI capability] into [production context].}
+\cvcomp{[Platform \& Pipeline Engineering]}{[Pipeline optimization] and [feedback-loop reduction], [CI job integration], [test parallelization], and [containerized deployment]. Shortens the distance between a change and trustworthy feedback.}
+\cvcomp{[Quality \& Test Architecture]}{[End-to-end framework design], [reusable helpers and utilities], [seed-driven test data], [flaky-test mitigation], and [failure-pattern analysis]. Builds quality in early instead of inspecting it in late.}
+\cvcomp{[Software Engineering]}{[Language 1], [language 2], and [scripting] across [full-stack and automation work], from [a multi-tenant platform] to [a framework-free pipeline]. Delivers end to end: architecture, data model, API, UI, testing, and deploy.}
+\cvcomp{[Ownership \& Communication]}{[Initiative and autonomy], [root-cause-first problem solving], and [communication with technical and non-technical stakeholders]. [Concrete ownership example - what you started, ran, and delivered].}
 \end{itemize}
 
 % ============================================================
@@ -225,12 +255,17 @@
 
 \section{Skills}
 
-\cvskill{[Skill Category 1]}{[item · item · item · item] }
-\cvskill{[Skill Category 2]}{[item · item · item · item]}
-\cvskill{[Skill Category 3]}{[item · item · item · item]}
-\cvskill{[Skill Category 4]}{[item · item · item · item]}
-\cvskill{[Skill Category 5]}{[item · item · item · item]}
-\cvskill{[Tools \& Platforms]}{[tool · tool · tool · tool]}
+\cvskill{[Process, Operations \& Continuous Improvement]}{[Process analysis and mapping] · [Workflow re-engineering] · [Operational efficiency] · [Waste identification and prioritization] · [Procedure standardization] · [Task ownership and handover design] · [KPI design and tracking] · [Lean Software Development] · [Technical debt diagnosis and remediation] · [Continuous improvement (PDCA / Kaizen)] · [Process automation (RPA)] · [Structured business-case analysis]}
+\cvskill{[Quality, Testing \& Reliability]}{[Software QA (manual and automated)] · [End-to-end test framework design] · [Reusable test helpers and utilities] · [API integration testing] · [Component-level unit testing] · [Test pyramid design and coverage rebalancing] · [Flaky test mitigation] · [Seed-driven test data] · [Failure-pattern and log analysis] · [Shift-left quality] · [Eval and benchmark harness design (golden sets, controlled A/B)]}
+\cvskill{[CI/CD, DevOps \& Delivery]}{[CI/CD foundations and practical application] · [Pipeline optimization and feedback-loop reduction] · [Build and test resource efficiency] · [CI job integration for test batteries] · [Test parallelization] · [Workflow governance] · [Local environment automation scripting] · [Environment reproducibility] · [Containerization and deployment (Docker, Docker Compose)] · [Tooling and migration assessment]}
+\cvskill{[Applied AI \& Machine Learning]}{[CNNs and image classification] · [Object detection] · [Sequence models] · [Transfer Learning] · [Hyperparameter optimization] · [LLM integration and AI agents] · [RAG system design, testing, and evaluation (recall@k benchmarking)] · [Vector databases] · [LangChain] · [Chatbot and embedded AI chat] · [Local LLM deployment] · [Prompt engineering] · [Deep-learning training practice] · [LLM guardrails and grounding enforcement] · [Agent harness engineering] · [Tool and function-calling design] · [Multi-agent orchestration] · [LLM observability and production monitoring]}
+\cvskill{[Security \& Defensive Engineering]}{[Offensive security] · [OSINT and footprinting] · [Vulnerability assessment and reporting] · [SIEM implementation and log centralization] · [Threat detection and alerting] · [Host-based intrusion detection] · [File integrity monitoring] · [Wazuh and Elastic Stack (ELK)] · [Data privacy and PII redaction pipeline design] · [Penetration testing methodology] · [Detection rule authoring and alert tuning]}
+\cvskill{[Immersive Tech, 3D \& Visualization]}{[Virtual and Augmented Reality] · [Digital Twins] · [3D modelling and printing] · [VTK 2D/3D/VR visualization] · [Unity (C\#)] · [Godot] · [Blender] · [VRChat SDK] · [Additive manufacturing and rapid prototyping]}
+\cvskill{[Data, Analysis \& Reporting]}{[Excel database creation and maintenance] · [Data structuring and reporting] · [SQL data handling] · [SPSS statistics] · [KPI and operational metric tracking] · [Analytical reasoning]}
+\cvskill{[Engineering Foundations]}{[Physics and Mathematics] · [Scientific computing and simulation (MATLAB)] · [Engineering drawings] · [Systems and computer hardware architecture] · [Elementary electrical circuits]}
+\cvskill{[Programming Languages]}{[Language 1] · [Language 2] · [Language 3] · [SQL] · [MATLAB] · [Shell / Bash] · [Full-stack web architecture]}
+\cvskill{[Tools \& Platforms]}{[Tool 1] · [Tool 2] · [Tool 3] · [Framework 1] · [Framework 2] · [Database 1] · [Cloud platform] · [Container and orchestration tooling] · [CI platform] · [Microsoft 365]}
+\cvskill{[Soft Skills]}{[Initiative and autonomy] · [Problem-solving (root-cause-first)] · [Fast learning and resilience] · [Leadership and team dynamics] · [Communication with technical and non-technical stakeholders] · [Adaptability]}
 
 % ============================================================
 %   SELECTED PROJECTS  (always include; select 4-6 per role in
@@ -240,21 +275,47 @@
 
 \section{Selected Projects}
 
-\cvproject{[Project Title 1]}{[Tech stack item · item · item]}{[What the project is and what came of it - outcome, scale, or validation.]}
+\cvproject{[Project Title 1]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it - outcome, scale, or validation. Keep the stack out of this line.]}
 
-\cvproject{[Project Title 2]}{[Tech stack item · item · item]}{[What the project is and what came of it.]}
+\cvproject{[Project Title 2]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
 
-\cvproject{[Project Title 3]}{[Tech stack item · item · item]}{[What the project is and what came of it.]}
+\cvproject{[Project Title 3]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
 
-\cvproject{[Project Title 4]}{[Tech stack item · item · item]}{[What the project is and what came of it.]}
+\cvproject{[Project Title 4]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
 
-\cvproject{[Project Title 5 (optional)]}{[Tech stack item · item · item]}{[What the project is and what came of it.]}
+\cvproject{[Project Title 5]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 6]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 7]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 8]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 9]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 10]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 11]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 12]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 13]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 14]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 15]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 16]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 17]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+
+\cvproject{[Project Title 18]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
 
 % --- Mandatory closing catch-all. In a tailored CV this line names the master
 % --- projects that did NOT make the selection above, so the section reads as a
 % --- selection. One rendered line; titles compressed to short descriptors;
 % --- never a project absent from this master.
-\cvmoreprojects{[a cut project, a second cut project, a third cut project]. More at \href{https://your-portfolio.example.com}{your-portfolio.example.com}.}
+\cvmoreprojects{[a cut project], [a second cut project], and [a third cut project]. More at \href{https://your-portfolio.example.com}{your-portfolio.example.com}.}
 
 % ============================================================
 %   OTHER RELEVANT INFORMATION  (closes the CV; select 2-4 of the
@@ -266,10 +327,14 @@
 \section{Other Relevant Information}
 
 \begin{itemize}
-\item [YOUR REFERENCES LINE - e.g. Recommendation letter from <reference name and title>, available on request; additional references on request.]
-\item [Optional bullet: languages, certifications, volunteering, international exposure.]
-\item [Optional bullet: awards, publications, community involvement.]
-\item [Optional bullet: personal interests that genuinely add signal for this role.]
+\item Recommendation letter from [Reference Name, Title at Organization], available on request; additional references on request.
+\item International exposure: [travel, training courses, or time living abroad - keep only what adds signal].
+\item Award: [what it was for and what came of it].
+\item Volunteering: [community involvement, scope, and years].
+\item Certification: [qualification relevant to the posting].
+\item Writing: [blogs, publications, or documentation you maintain].
+\item Personal interest in [domain relevant to the posting]: [what you actually do with it] (surface only for adjacent roles).
+\item Personal maker practice: [building, prototyping, or craft] for iterative problem-solving.
 \end{itemize}
 
 \end{document}
