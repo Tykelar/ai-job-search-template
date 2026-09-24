@@ -120,6 +120,27 @@ per-file diff commands.
   `ba4f2397a` (salary files portion; the remaining tools of that commit land in
   Parts 4 and 7, with the full `tests/test_tools_utf8_output.py` once all six
   tools exist).
+- **Part 4 — PDF tooling & ATS verification stack** (commit `2a80e9e`). Method A
+  take of `tools/verify_pdf.py`, `tests/test_verify_pdf.py` and
+  `tests/test_latex_guidance.py`, plus the new `tools/verify_layout.py` and
+  `tests/test_verify_layout.py`. `verify_pdf.py` now tries pypdf first (BSD,
+  optional) and falls back to Poppler `pdftotext -layout -enc UTF-8`; it folds
+  NFC and LaTeX's typographic substitutions (curly apostrophes, en/em dashes,
+  no-break spaces) on both sides of `--contains`, and writes the raw text layer
+  with `--dump-text`. `verify_layout.py` measures page geometry (mid-page holes,
+  early page ends, footer collisions, orphaned/split entries) from Poppler
+  `-bbox` and exits 2 with `skipped:` when the extractor cannot supply boxes.
+  `/apply` Step 5b/5d, the 05/06 template guides, `CLAUDE.md`, `README.md`,
+  `SETUP.md` and the CI LaTeX job were reconciled by hand (C): the new bookworm
+  leg compiles on apt TeX Live 2022, and the text-layer guard asserts a
+  template-mechanical token (`Tech stack:`, `Dear`). Fork deviations from the
+  upstream A files: the `verify_layout.py` docstring escapes `\hypersetup` (no
+  SyntaxWarning), a missing `pdfinfo` no longer fails a text-only check on the
+  Git-for-Windows xpdf `pdftotext` path (`--pages` still fails loudly), and
+  `tests/test_gate_configuration.py` also asserts `verify_pdf.py`. Upstream
+  refs: `cbd8a991a`, `1b65f7198`, `dea8140db`, `75c15eeec`, `73d52e099`,
+  `b2545d512`, `c696b60b7`, `ba4f2397a` (the `07cec1f22` sentinel half is
+  Part 13).
 
 ## [1.0.0] - 2026-07-22
 
