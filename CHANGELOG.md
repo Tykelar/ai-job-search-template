@@ -93,6 +93,18 @@ per-file diff commands.
   frontmatter: the four Danish demo portals now ship `enabled: false`, which matches
   this fork's Portuguese market (`linkedin`/`freehire` stay enabled). The `setup.md`
   half of `cffacfd` is a CUSTOM reconcile and lands in Part 11.
+- **Part 2 — cross-portal contract, scoped `bun run`, CI CLI discovery** (commit
+  `d696a88`). Adds `tests/test_scrape_contract.py`, which derives the `/scrape`
+  Step 2 search-output contract (title, company, location, date, url) from
+  `job-scraper/SKILL.md` and fails if any `.agents/skills/*-search` CLI stops
+  emitting a field. `.claude/settings.json` now scopes the pre-approved
+  `Bash(bun run:*)` to the six shipped portal CLIs and adds the
+  `rank_state`/`job_key`/`verify_pdf`/`verify_layout` tool permissions;
+  `tools/security_guards.py`'s allowlist mirrors it. CI gains a `discover-clis`
+  job, so `cli-checks` derives its matrix from
+  `.agents/skills/*/cli/package.json` and a portal added by `/add-portal` is
+  typechecked and tested with no workflow edit. Upstream refs: `db8312948`
+  (#344), `2d636c50b` (#396), `f658bb6f9` (#310).
 
 ## [1.0.0] - 2026-07-22
 

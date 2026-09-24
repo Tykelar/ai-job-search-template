@@ -93,7 +93,7 @@ fix).
 |---|---|---|---|---|
 | 0 | Preflight & handoff setup | ☑ done | merge `4b89ad6` into `personal` (part branch `port/part-00-preflight` @ `cfbc5fd`) | Baseline all-green (no pre-existing failures); `handoff` skill installed; no upstream code ported. |
 | 1 | Portal CLIs — wholesale refresh | ☑ done | merge `889f407` into `personal` (part branch `port/part-01-portal-clis` @ `9e12980`) | Method A take of `.agents/skills/`: 64 files, 6/6 CLIs green (312 tests, no network). Also ported `cffacfd` (#288) frontmatter — the four Danish portals now ship `enabled: false` (correct for this fork's PT market). `cffacfd`'s `setup.md` half deferred to Part 11 (now in its table). |
-| 2 | Cross-portal contract, settings, CI discovery | ☐ todo | | |
+| 2 | Cross-portal contract, settings, CI discovery | ☑ done | merge `TBD` into `personal` (part branch `port/part-02-contract-settings-ci` @ `d696a88`) | Contract test (`db8312948`) green against all six CLIs; `.claude/settings.json` scoped (A) with `security_guards.py` mirroring the allowlist; `discover-clis` added to CI (`f658bb6f9`), fork `applications/` paths and Tykelar placeholder condition preserved. Also took `f658bb6f9`'s `add-portal.md` note (same commit; no other part covered it). |
 | 3 | Salary tooling (+ UTF-8 stdout) | ☐ todo | | |
 | 4 | PDF tooling & ATS verification stack | ☐ todo | | |
 | 5 | Deadline persistence end-to-end | ☐ todo | | |
