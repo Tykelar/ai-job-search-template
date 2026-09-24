@@ -100,6 +100,11 @@ ALLOWED_IGNORE_NEGATIONS = {
     "!applications/OpenFonts/fonts/**",
     "!applications/main_example.tex",
     "!applications/cover_example.tex",
+    # Rendered previews of the two shipped examples, committed so the
+    # template's output is visible in the repo without compiling. The global
+    # *.pdf rule still ignores every personal application PDF.
+    "!applications/main_example.pdf",
+    "!applications/cover_example.pdf",
     "!documents/**/.gitkeep",
 }
 

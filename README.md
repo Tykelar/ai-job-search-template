@@ -195,7 +195,9 @@ ai-job-search/
 ├── applications/
 │   ├── <company>_<role>/              # One folder per application (CV + cover letter + PDFs)
 │   ├── main_example.tex               # Master CV: full content bank in the compact LaTeX template
+│   ├── main_example.pdf               # Rendered example CV (committed preview)
 │   ├── cover_example.tex              # Example cover letter (structural reference + CI smoke test)
+│   ├── cover_example.pdf              # Rendered example cover letter (committed preview)
 │   ├── cover.cls                      # Custom cover letter LaTeX class (shared, compile from applications/)
 │   └── OpenFonts/                     # Lato + Raleway fonts (shared)
 ├── templates/                         # Custom templates registered via /add-template
@@ -273,6 +275,8 @@ This re-runs the search configuration interview: which roles to target, which sk
 ### LaTeX templates
 
 The CV uses a compact single-column template (Carlito font via fontspec/lualatex), embodied by the master `applications/main_example.tex`; tailored CVs are built from it by verbatim selection. The cover letter uses a custom `cover.cls` with Lato/Raleway fonts.
+
+See the rendered examples before compiling anything: **[example CV (PDF)](applications/main_example.pdf)** · **[example cover letter (PDF)](applications/cover_example.pdf)**. They are a working skeleton — replace the example content with your own facts.
 
 To use your own template instead, run:
 
