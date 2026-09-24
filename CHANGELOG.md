@@ -70,6 +70,14 @@ per-file diff commands.
   enum and produced by nothing. Both removed.
 - `04-job-evaluation.md` announced five scoring dimensions over a list of six.
 
+### Upstream port
+
+- **Part 0 - preflight & handoff setup** (fork tooling, no upstream code ported).
+  Recorded a green baseline of every verification command in
+  `docs/port-logs/part-00-baseline.txt` and installed the `handoff` skill
+  (`.claude/skills/handoff`, `.agents/skills/handoff`) so each part of the upstream
+  port can close out with a handoff document. See `docs/upstream-port-plan.md`.
+
 ## [1.0.0] - 2026-07-22
 
 First tagged release. This marks the framework as stable and gives forks a described
