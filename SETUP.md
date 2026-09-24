@@ -213,25 +213,28 @@ All three paths produce the same result: fully populated profile files. All thre
 |------|---------|
 | `CLAUDE.md` | Your full candidate profile |
 | `config/gates.md` | **Your four hard gates** - work authorization, languages with levels, experience ceiling, authorized-relocation countries. The single source of truth every gate reads, and the one file `/rank` refuses to run without |
-| `01-candidate-profile.md` | Structured education, experience, skills |
+| `01-candidate-profile.md` | Structured identity, education, experience, skills |
 | `02-behavioral-profile.md` | Behavioral assessment |
-| `04-job-evaluation.md` | Personalized skill match areas and career goals (gate *mechanisms* only - the values live in `config/gates.md`) |
-| `05-cv-templates.md` | Profile statement templates for your background |
-| `07-interview-prep.md` | STAR examples from your experience |
+| `03-writing-style.md` | Headline, framing, and voice rules that override the generic guidance |
+| `04-job-evaluation.md` | Personalized skill match areas, career goals, and life-situation context (gate *mechanisms* only - the values live in `config/gates.md`) |
+| `05-cv-templates.md` | CV structure and tailoring rules (a generic guide - no personalization needed) |
+| `07-interview-prep.md` | STAR examples and tough-question answers from your experience |
 | `applications/main_example.tex` | Your LaTeX CV with actual details |
+| `applications/master_cv.md` | Your Markdown master bank, kept in sync with the `.tex` |
 | `search-queries.md` | Job search queries for `/scrape` — generated from `search-queries.template.md`, gitignored (personal to your fork, never committed) |
 
 ### Re-running setup
 
-You can update specific sections later:
+You can update specific sections later - each name maps to a Path C section (`identity`, `education`, `experience`, `skills`, `publications`, `behavioral`, `goals`, `references`, `search`):
 
 ```
 /setup --section skills
 /setup --section experience
+/setup --section goals
 /setup --section search
 ```
 
-The `--section search` option is especially useful as your priorities evolve. It re-runs the search configuration interview and suggests role types you may not have considered based on your full profile.
+The `--section search` option is especially useful as your priorities evolve. It re-runs the search configuration interview and suggests role types you may not have considered based on your full profile. Every run ends with a placeholder sweep, so a section re-run cannot leave stale tokens behind.
 
 ## 5. Optional: Set up salary benchmarking
 

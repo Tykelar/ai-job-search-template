@@ -8,7 +8,7 @@ There are three paths into setup. Step 0 picks the right one; all three converge
 
 ## Step 0: Welcome & Choose Path
 
-If `$ARGUMENTS` contains `--section <name>`, skip directly to that section in Path C for an update-only flow. Do not run the path-selection prompt below.
+If `$ARGUMENTS` contains `--section <name>`, skip directly to that section in Path C for an update-only flow and apply only the Step 3 substeps that section feeds. Section names are free-form but map to the Path C headings: `identity`, `education`, `experience`, `skills`, `publications`, `behavioral`, `goals`, `references`, `search`. The common re-runs are `--section search` (regenerates `search-queries.md` and the `CV language` line), `--section goals` (updates `CLAUDE.md`, `03-writing-style.md`, and `04-job-evaluation.md`), and `--section identity` (updates `CLAUDE.md` and `01-candidate-profile.md`). Do not run the path-selection prompt below.
 
 Otherwise, before greeting the user, scan the `documents/` folder. Use Glob with `documents/**/*` and count files per subfolder (`cv/`, `linkedin/`, `diplomas/`, `references/`, `applications/`).
 
@@ -218,6 +218,7 @@ Documents cover skills, experience, education, references, and behavioral signal
 - Career goals and target role types
 - What excites the user in their next role
 - Deal-breakers and must-haves
+- Positioning and presentation (use the questions from Path C Section 7: default headline, framings to avoid, target framings, voice, application priority note, document naming rule, life-situation context)
 - Salary expectations / baseline (optional)
 - Job search configuration (use the questions from Path C Section 9 below)
 
@@ -228,7 +229,22 @@ Documents cover skills, experience, education, references, and behavioral signal
 - **Experience ceiling:** the highest *stated minimum* years-of-experience a posting may require before it is not worth applying to (a bare number)
 - **Authorized countries:** base location, what is commutable from it, the explicit list of countries the user would relocate to, and whether remote is in scope and within which region. This replaces the older "commute or location constraints" question, which collected too little for the location gate
 
-Then proceed to Step 3 to populate the non-skill files (`CLAUDE.md`, `config/gates.md`, `applications/main_example.tex`, `.claude/skills/job-scraper/search-queries.md`). Step 3 will detect that the seven skill files are already populated and skip those substeps - `config/gates.md` is **not** one of them and is always written, from the answers above.
+**Placeholder sweep before Step 3.** Documents rarely cover every preference. Grep the files Step 3 writes for surviving bracketed tokens:
+
+```bash
+grep -nE '\[[A-Z][A-Z_ -]{3,}[^]]*\]' \
+  CLAUDE.md \
+  .claude/skills/job-application-assistant/01-candidate-profile.md \
+  .claude/skills/job-application-assistant/02-behavioral-profile.md \
+  .claude/skills/job-application-assistant/03-writing-style.md \
+  .claude/skills/job-application-assistant/04-job-evaluation.md \
+  .claude/skills/job-application-assistant/07-interview-prep.md \
+  applications/master_cv.md
+```
+
+Every hit is a preference the documents did not carry: ask the matching Path C Section 1/6/7 question and fill it before moving on.
+
+Then proceed to Step 3 to populate the non-skill files (`CLAUDE.md`, `config/gates.md`, `applications/main_example.tex`, `applications/master_cv.md`, `.claude/skills/job-scraper/search-queries.md`). Step 3 detects what Step A7 already filled and completes the rest.
 
 ---
 
@@ -241,7 +257,8 @@ If the user provides a single CV/resume:
 3. Present a summary of what was extracted.
 4. Ask follow-up questions for gaps (behavioral profile, career goals, deal-breakers, salary expectations, references).
 5. Ask the **four hard-gate questions** from Path A's Step A7 - work authorization, languages with proficiency levels, experience ceiling, authorized countries. A CV carries none of them in usable form, and `config/gates.md` (written in Step 3.3b) is not optional: `/rank` stops while any block is unfilled.
-6. Proceed to Step 3 (file generation).
+6. Ask the **positioning and presentation questions** from Path C Section 7 (default headline, framings to avoid, target framings, voice, application priority note, document naming rule, life-situation context) - a CV does not carry them.
+7. Proceed to Step 3 (file generation).
 
 ---
 
@@ -252,10 +269,12 @@ Walk through each section conversationally. Ask questions naturally, not as a fo
 ### Section 1: Identity & Contact
 Ask about:
 - Full name
+- Short name or nickname (used in prose; derive it from the full name if they have no preference)
 - Location (city, country)
-- Phone, email, LinkedIn, GitHub
+- Phone, email, LinkedIn, GitHub, portfolio (portfolio optional)
 - What languages they work in professionally, and roughly what level in each (native, fluent, conversational, a CEFR letter like B2 - whatever's natural for them to describe, doesn't need to be precise). Worth explaining why: a posting requiring a language they don't list at all gets auto-excluded later by the Language Gate, while one asking for a higher level in a language they do list gets flagged for their own judgment instead of silently passed or rejected - so it's worth being honest here rather than optimistic.
 - Current employment status
+- Non-professional personal interests (optional - surfaced only when a role makes them genuinely relevant)
 - Family/commute constraints (if any)
 
 ### Section 2: Education
@@ -274,6 +293,8 @@ For each role (most recent first):
 - Technologies/tools used
 
 Also ask about independent projects, freelance work, or side projects.
+
+Also ask about volunteering, memberships, and community involvement (optional).
 
 ### Section 4: Technical Skills
 - Programming languages + proficiency level
@@ -301,8 +322,15 @@ If not, ask behavioral questions:
 
 ### Section 7: Career Goals & Preferences
 - Target roles and industries
+- Default headline: the one-line professional positioning to lead with, and when a "Graduate" (or similar) label is allowed - written to `CLAUDE.md` and `03-writing-style.md`
+- Framings or titles you never want to be positioned as, and the framing to use instead - `CLAUDE.md` positioning rule and 03's framing rules
+- Primary target framings: which direction wins when a posting is ambiguous - 03
+- Voice and tone notes for outgoing documents (e.g. direct and technical, formal, warm) - 03
 - What excites you in work
 - Deal-breakers and must-haves
+- Application priority note: when there are more postings than time, what should `/apply` prioritise, or "none" - `CLAUDE.md`
+- Document naming rule: anything your documents must always name or must never mention (e.g. a tool you actually use) - becomes the `CLAUDE.md` verification-checklist item
+- Life-situation context the scorer weighs: financial/security constraints, schedule or availability constraints, and professional-development priorities that should count in a role's favour (each may be "none") - `04-job-evaluation.md`
 - Salary expectations/baseline (optional)
 - What environments to avoid
 - Commute/location constraints
@@ -340,13 +368,13 @@ This proactive suggestion step helps users discover career paths they might not 
 
 ## Step 3: Generate Profile Files
 
-Once data collection is complete, generate or finish populating the following files. **For Path A**, the seven skill files are already populated by Step A7; check each before writing and skip if its content is no longer placeholder text.
+Once data collection is complete, generate or finish populating the following files. **For Path A**, Step A7 has already applied the document-derived changes: before skipping any file below, check it for surviving bracketed tokens and fill the leftovers from the matching Path C Section 1/6/7 questions (Step A7 ends with the same sweep). Paths B and C write each file from their collected answers.
 
 ### 1. Update `CLAUDE.md`
-Replace all `[PLACEHOLDER]` tokens with the user's actual information. Keep the structure, workflow, and verification checklist intact. Also set the **`CV filename slug:`** line in the Identity section — a short, no-space name used in generated filenames (`CV_<CVNameSlug>_<company>_<role>.tex`), e.g. `FirstLast`. Derive it from the user's name by default (first name + last name, no spaces or accents) and confirm it with them rather than asking a separate question outright.
+Replace every bracketed token - `[YOUR_NAME]`, `[SHORT_NAME]`, `[DEGREE_LEVEL]`, `[JOB_TITLE]`, `[TRAIT_NAME]`, `[WHAT_EXCITES_YOU_1]`, `[YOUR_PERSONAL_INTERESTS]`, `[YOUR_DEFAULT_HEADLINE]`, `[YOUR_POSITIONING_RULE]`, `[YOUR_APPLICATION_PRIORITY_NOTE]`, `[YOUR_AI_TOOLING_NOTE]`, and the rest - with the user's actual information; none may survive. Keep the structure, workflow, and verification checklist intact. Derive `[SHORT_NAME]` from the full name if the user gave no preference. Also set the **`CV filename slug:`** line in the Identity section — a short, no-space name used in generated filenames (`CV_<CVNameSlug>_<company>_<role>.tex`), e.g. `FirstLast`. Derive it from the user's name by default (first name + last name, no spaces or accents) and confirm it with them rather than asking a separate question outright.
 
 ### 2. Populate `01-candidate-profile.md` *(Path B and C; skip if Path A populated it)*
-Write the full candidate profile with structured sections: Identity (including Languages, with levels), Education, Professional Experience, Independent Projects, Technical Skills, Publications, Awards, References.
+Write the full candidate profile with structured sections: Identity (including Languages, with levels), Education, Professional Experience, Independent Projects, Technical Skills, Publications, Awards, References. Include Community & Involvement (volunteering, memberships, extracurricular work) and fill the Impact Metrics table - every quantified number that may appear in a CV bullet belongs there with its source.
 
 ### 3. Populate `02-behavioral-profile.md` *(Path B and C; skip if Path A populated it)*
 Write the behavioral profile based on assessment results or synthesized answers.
@@ -365,30 +393,61 @@ Replace skill match areas with the user's actual skills:
 - Strong match areas: [their primary skills]
 - Moderate match areas: [their secondary skills]
 - Weak match areas: [skills they lack]
+- Entry-level roles: [roles their tenure actually fits] - derive from their years of experience and seniority
 
-Update career goals and motivation filters with their actual preferences.
+Update career goals and motivation filters with their actual preferences, and fill the life-situation fields too: financial/security context, schedule constraints, and professional-development priorities. Write "none" rather than leaving a token where the user has no constraint.
 
-### 5. Update `05-cv-templates.md` *(Path B and C; skip if Path A populated it)*
-Add role-specific profile statement templates based on their background.
+### 5. Update `03-writing-style.md` - positioning and voice *(Path B and C, and Path A if the sweep left it unfilled)*
+Fill the "Candidate-Specific Rules" section from the Section 7 answers:
+- Default headline and when a "Graduate" (or similar) label is allowed
+- Titles or framings to never use, and the framing to use instead
+- Primary target framings (which direction wins when a role is ambiguous)
+- Voice notes for outgoing documents
+
+This is the only source for those rules and no later check reads it, so an unfilled token here silently affects every document `/apply` writes. `05-cv-templates.md` and `06-cover-letter-templates.md` are generic guides and need no personalization beyond what `CLAUDE.md`, `03`, and the master bank already carry.
 
 ### 6. Update `07-interview-prep.md` *(Path B and C; skip if Path A populated it)*
-Create STAR examples from their actual experience (at least 3-4 examples). Path A leaves STAR stubs under "## STAR Candidates (Complete Manually)" rather than full examples; if any stubs are present, mention them in Step 4 so the user knows to flesh them out.
+Create STAR examples from their actual experience (at least 3-4 examples), **replacing the three skeleton entries** under "Ready-Made STAR Examples". Then answer the "Common Tough Questions" placeholders (`[PREPARE YOUR ANSWER - ...]`) from the profile - reasons for leaving, gaps, five-year plan, weakness - using the same facts discipline as the STAR examples. Path A leaves STAR stubs under "## STAR Candidates (Complete Manually)" rather than full examples; if any stubs are present, mention them in Step 4 so the user knows to flesh them out.
 
-### 7. Update `applications/main_example.tex`
-Replace placeholder personal data with their actual name, contact info, and add their education and most recent experience entries.
+### 7. Update `applications/main_example.tex` and `applications/master_cv.md`
+Both ship as a **working example**: bracketed tokens AND example content (bullets, projects, competencies, skills, metrics) that is not the user's. Do not stop at the name and contact line:
+- Replace every example claim with the user's real facts from the profile files. Never leave example projects, metrics, or employers in place - the user must not be able to send example claims as their own
+- Keep the two files in sync line-for-line: the Markdown bank is the verbatim-selection master, the `.tex` mirrors it, and both must match `01-candidate-profile.md`
+- Add the role-headline variants from Section 7 to `master_cv.md` if the user supplied any
+- Delete any block that does not apply to the user
 
 ### 8. Generate `.claude/skills/job-scraper/search-queries.md`
 This file is **personal and gitignored** — it is never committed, so every fork gets the same tracked `search-queries.template.md` and generates its own local copy. Copy `.claude/skills/job-scraper/search-queries.template.md` to `.claude/skills/job-scraper/search-queries.md` (if the local file doesn't already exist — if it does, this is a re-run, so update it in place rather than starting over), then replace all placeholder tokens with the user's actual information from Section 9 (or the equivalent follow-up questions in Path A's Step A7):
 - Replace `[YOUR_PRIMARY_ROLE_TYPE]`, `[YOUR_PRIMARY_JOB_TITLE]`, etc. with actual role titles
 - Replace `[YOUR_KEY_SKILL]`, `[YOUR_DOMAIN_KEYWORD_1]`, etc. with actual skills and domain terms
 - Replace `[YOUR_HOME_MARKET]`, `[YOUR_RELOCATION_COUNTRIES]`, `[YOUR_CORE_MARKETS]`, `[YOUR_REGION]`, etc. with actual location and market scope
-- Replace `[YOUR_LANGUAGES_WITH_LEVELS]` with the same values as the `Languages:` line in CLAUDE.md's Identity section, so the two never drift apart
+- Replace `[YOUR_LANGUAGES_WITH_LEVELS]` with the same values as the Languages table in `config/gates.md` (Gate 2) - the single source of truth - so the two never drift apart
 - Fill in the location filter tiers (ideal, acceptable, borderline, too far) based on commute constraints
 - Organize queries into priority categories matching the user's career direction:
   - Priority 1: Their strongest/most desired role direction
   - Priority 2: Their domain expertise
   - Priority 3: Adjacent roles they could pivot into
   - Priority 4: Broader roles (wider net)
+
+Delete the template's leading header comment in the generated `search-queries.md` (it describes the template file, not the user's configuration).
+
+### 9. Final check: nothing left unfilled
+Before Step 4, grep the files setup writes for surviving bracketed tokens:
+
+```bash
+grep -nE '\[[A-Z][A-Z_ -]{3,}[^]]*\]' \
+  CLAUDE.md \
+  .claude/skills/job-application-assistant/01-candidate-profile.md \
+  .claude/skills/job-application-assistant/02-behavioral-profile.md \
+  .claude/skills/job-application-assistant/03-writing-style.md \
+  .claude/skills/job-application-assistant/04-job-evaluation.md \
+  .claude/skills/job-application-assistant/07-interview-prep.md \
+  applications/master_cv.md \
+  config/gates.md \
+  .claude/skills/job-scraper/search-queries.md
+```
+
+Every hit is an unanswered preference: map it to the Path C section or Step 3 substep that feeds that file (profile and positioning: Sections 1/6/7; search: Section 9; gates: Step 3b), ask the question, and re-run the grep until it is empty. `05`/`06` are excluded on purpose - they carry bracketed tokens as documentation examples, not user configuration - and `applications/main_example.tex` is excluded because its body placeholders are mixed-case examples replaced wholesale in Step 7.
 
 ---
 
@@ -401,11 +460,12 @@ Present a summary:
 > - `CLAUDE.md` - Your full candidate profile
 > - `.claude/skills/job-application-assistant/01-candidate-profile.md` - Structured profile
 > - `.claude/skills/job-application-assistant/02-behavioral-profile.md` - Behavioral assessment
+> - `.claude/skills/job-application-assistant/03-writing-style.md` - Headline, framing, and voice rules
 > - `.claude/skills/job-application-assistant/04-job-evaluation.md` - Personalized evaluation framework
 > - `config/gates.md` - your four hard gates: work authorization, languages, experience ceiling, authorized countries
-> - `.claude/skills/job-application-assistant/05-cv-templates.md` - CV templates with your profile statements
-> - `.claude/skills/job-application-assistant/07-interview-prep.md` - STAR examples from your experience
+> - `.claude/skills/job-application-assistant/07-interview-prep.md` - STAR examples and tough-question answers from your experience
 > - `applications/main_example.tex` - Your LaTeX CV template
+> - `applications/master_cv.md` - Your Markdown master CV bank, kept in sync with the `.tex`
 > - `.claude/skills/job-scraper/search-queries.md` - Job search queries for `/scrape`
 >
 > **Try it out:**
@@ -428,4 +488,5 @@ If Path A left any STAR stubs in `07-interview-prep.md`, also note:
 - Synthesize answers into structured formats (the user does not need to know markdown or LaTeX).
 - Can be re-run with `--section <name>` to update specific sections (e.g., `/setup --section search` to reconfigure job search queries without re-doing the full profile).
 - Section 9 (search) in Path C, and the equivalent follow-up questions in Path A, proactively suggest role types the user may not have considered.
+- The final placeholder sweep is the completion criterion: a preference with no answer is a question to ask, never a token to leave behind.
 - At the end, suggest running `/scrape` and `/apply` with a test job posting.

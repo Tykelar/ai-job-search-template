@@ -1,9 +1,9 @@
 # Job Application Assistant for [YOUR_NAME]
 
-<!-- SETUP: This file is populated by running /setup. After /setup, all [PLACEHOLDER]
-     tokens and [BRACKETED] values below are replaced with your actual information.
-     Do NOT hand-edit facts here afterwards if you maintain a USI corpus: edit the
-     corpus, then re-run /sync-usi. Otherwise, keep this file in sync with
+<!-- SETUP: This file is populated by running /setup. After /setup, every bracketed
+     token below is replaced with your actual information. Do NOT hand-edit facts
+     here afterwards if you maintain a USI corpus: edit the corpus, then re-run
+     /sync-usi. Otherwise, keep this file in sync with
      .claude/skills/job-application-assistant/01-candidate-profile.md by hand. -->
 
 ## Role

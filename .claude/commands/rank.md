@@ -53,13 +53,19 @@ print(json.dumps({k:{x:v.get(x) for x in f} for k,v in d.items() if v.get('statu
 
 Before dispatching a single agent, verify that what you just read is actually personalized. This framework ships as a template that `/setup` fills in, and an unfilled copy fails **silently**: placeholder skill areas and career goals produce scores that look plausible and mean nothing, while an unfilled gate table degrades that gate to a PASS on every posting.
 
-Check both files and **stop the run** if either check fails:
+Check the personalized files and **stop the run** if any check fails:
 
 ```bash
-grep -nE '\[[A-Z_]{4,}\]' .claude/skills/job-application-assistant/04-job-evaluation.md config/gates.md
+grep -nE '\[[A-Z][A-Z_ -]{3,}[^]]*\]' \
+  .claude/skills/job-application-assistant/01-candidate-profile.md \
+  .claude/skills/job-application-assistant/02-behavioral-profile.md \
+  .claude/skills/job-application-assistant/03-writing-style.md \
+  .claude/skills/job-application-assistant/04-job-evaluation.md \
+  applications/master_cv.md \
+  config/gates.md
 ```
 
-- **Placeholder tokens** (`[YOUR_PRIMARY_SKILLS]`, `[YOUR_CAREER_GOAL_1]`, `[SKILLS_YOU_LACK]`, and the like) anywhere in either file.
+- **Placeholder tokens** (`[YOUR_PRIMARY_SKILLS]`, `[YOUR_CAREER_GOAL_1]`, `[SKILLS_YOU_LACK]`, and the like) anywhere in those files.
 - **Empty or unfilled gate tables** in `config/gates.md`: a Languages table with no rows, a blank experience ceiling, an authorized-countries list that is empty or still reads as an example.
 
 On either failure, report what is unfilled and what it would corrupt - name the affected dimension weight (Technical 30%, Career Alignment 30%) or the gate that would silently pass - and ask the user to run `/setup` (or fill `config/gates.md`) before ranking. **Do not rank a partial pool, do not substitute the profile file for the missing rubric, and do not proceed on a "close enough" reading.** The user may explicitly tell you to rank anyway; only then continue, and label every score in Step 5 as computed against an unpersonalized framework.

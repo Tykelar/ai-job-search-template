@@ -22,7 +22,7 @@ fill in the placeholders yourself, or just run `/setup --section search`.
 
 The `site:` templates further down are the **WebSearch fallback** — for company career pages or when a CLI fails.
 
-**Language scope:** write every query category in the languages you work in professionally (see the `Languages:` line in CLAUDE.md's Identity section). Translate each category's keywords rather than machine-translating word-for-word. Two *separate* language checks then apply to what comes back — the **Language Filter** below (scrape-time, on the language a posting is *written* in) and `04-job-evaluation.md`'s **Language Gate** (on the languages the role *requires*). See the Language Filter section for how they differ.
+**Language scope:** write every query category in the languages you work in professionally (see the Languages table in `config/gates.md`, Gate 2 - the single source of truth). Translate each category's keywords rather than machine-translating word-for-word. Two *separate* language checks then apply to what comes back — the **Language Filter** below (scrape-time, on the language a posting is *written* in) and `04-job-evaluation.md`'s **Language Gate** (on the languages the role *requires*). See the Language Filter section for how they differ.
 
 ## Target Profile (drives keywords)
 
