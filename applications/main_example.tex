@@ -1,14 +1,20 @@
 %% ============================================================================
 %% MASTER CV (compact style) - [YOUR_NAME]
 %%
-%% This file is the FULL master content bank (applications/master_cv.md) rendered
-%% in the compact LaTeX style. It is the LaTeX skeleton AND the verbatim
-%% content source for tailored CVs.
+%% WHAT THIS FILE IS
+%%   A WORKING EXAMPLE of a filled master bank, not just a blank form:
 %%
-%% The body below is a REALISTIC EXAMPLE built to mirror a filled master bank
-%% line for line in shape and density. Every bracketed token is a placeholder:
-%% /setup replaces the identity and history, and you expand the rest with your
-%% own facts and metrics. Delete any block that does not apply.
+%%   1. [Bracketed] fields are PLACEHOLDERS for /setup (or you) to replace:
+%%      name, contact line, employers, institutions, dates, links, referees,
+%%      languages. Nothing personal is committed here.
+%%
+%%   2. The bullet, competency, skill, and project content is EXAMPLE CONTENT
+%%      based on a real filled master CV. It shows the expected style,
+%%      specificity, metrics, and density - what "well written" looks like.
+%%      Replace it with your own facts, keeping the shape. Never send example
+%%      claims as your own; the examples are scaffolding, not your history.
+%%
+%%   Delete any block that does not apply to you.
 %%
 %% HOW TO BUILD A TAILORED CV (verbatim selection):
 %%   1. Copy this file to applications/<NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.tex
@@ -129,7 +135,7 @@
 \begin{document}
 
 % ============================================================
-%   HEADER  (fixed contact line; no headline)
+%   HEADER  (PLACEHOLDERS - /setup fills these)
 % ============================================================
 
 {\fontsize{20}{24}\selectfont\bfseries\color{cvblue}[Your Full Name]\par}
@@ -137,17 +143,20 @@
 {\bfseries\color{cvdark}[Nationality] \textbar{} [+00 000 000 000] \textbar{} your.email@example.com \textbar{} \href{https://your-portfolio.example.com/}{\faGlobe\;[portfolio]} \textbar{} \href{https://www.linkedin.com/in/your-profile}{\faLinkedin\;[linkedin]} \textbar{} \href{https://github.com/your-username}{\faGithub\;[github]}\par}
 
 % ============================================================
-%   ABOUT ME  (no heading - separator rule only; the only fully
-%   generative content in a tailored CV)
+%   ABOUT ME  (EXAMPLE - no heading, separator rule only. The only
+%   fully generative surface in a tailored CV; this example shows the
+%   voice and the closing portfolio sentence.)
 % ============================================================
 
 \cvrule
 
-[Primary degree] and [profession] who [throughline - the change you make or the thing you build]. At [most recent employer] I [most relevant achievement, ideally measurable], formalized in [thesis or flagship project]. Alongside this I [second thread of experience - founding, operations, research], and bring a [systems-level, cross-functional] perspective spanning [area 1], [area 2], and [area 3]. Get to know me better \href{https://your-portfolio.example.com}{here}!
+Computer Engineering MSc and Software Engineer who re-engineers delivery infrastructure, improves engineering velocity, and integrates AI into engineering workflows. In my most recent role I led a Lean-driven re-engineering of the delivery pipeline, from diagnosing accumulated technical debt through to measurable gains in delivery speed and reliability, formalized in a master's thesis on Lean CI/CD and AI-ready infrastructure. Alongside this I founded and ran a cooperative through its full operational lifecycle, and bring a systems-level perspective spanning applied AI, immersive technologies, and cybersecurity. Get to know me better \href{https://your-portfolio.example.com}{here}!
 
 % ============================================================
-%   EDUCATION  (one bold line each + optional thesis/final-project
-%   sub-line; full project descriptions still live in Projects)
+%   EDUCATION  (PLACEHOLDERS for degree, institution, and dates;
+%   keep the one-bold-line-per-degree shape and the italic
+%   thesis/final-project sub-line. Full project write-ups belong in
+%   Selected Projects.)
 % ============================================================
 
 \section{Education}
@@ -159,11 +168,12 @@
 \cvedu{[Optional Earlier Degree or Transfer]}{[Institution]}{Sep 20XX - Jul 20XX}
 
 % ============================================================
-%   WORK EXPERIENCE  (one block per role, most recent first. Each
-%   bullet starts with a word or command - never a bare "[" - and
-%   carries a concrete tool, method, or measured outcome. Select
-%   5-6 from the most recent role, 3-4 from the second, 2-3 from
-%   earlier roles on a tailored CV.)
+%   WORK EXPERIENCE  (PLACEHOLDERS for job title, company, and dates;
+%   the bullets are EXAMPLES showing the expected style - action verb
+%   first, concrete tool or method, measured outcome. Every bullet
+%   starts with a word or command, never a bare "[".
+%   On a tailored CV: 5-6 bullets from the most recent role, 3-4 from
+%   the second, 2-3 from earlier roles.)
 % ============================================================
 
 \section{Work Experience}
@@ -171,50 +181,51 @@
 \cvjob{[Most Recent Job Title], [Company]}{Mon 20XX - Mon 20XX}
 \cvcontext{[One-line company or product context - what the company does, for whom, and at what scale.]}
 \begin{itemize}
-\item Built [tool, automation, or system] deployed in [context], enabling [measurable benefit] on [workflow].
-\item Led a [methodology]-driven re-engineering of [system or process], resolving [accumulated problem] and cutting [primary metric] by more than [X]\%.
-\item Redesigned [workflow or process], contributing to [X]\% [improvement in the outcome that matters most to the role].
-\item Restructured [task distribution or handovers], reducing [time or effort] by around [X]\% and eliminating duplicated work.
-\item Contributed to the architecture and testing of [product feature], helping users [outcome the feature delivers].
-\item Contributed to the architecture and testing of [second system], letting users [outcome it enables].
-\item Drove integration of [technology or practice] into [product, team, or engineering workflow].
-\item Collaborated on [specialist system or model]: [data, evaluation, or training work you did] and [what it achieved].
-\item Designed and implemented [framework or system], including reusable [components], for scalable and maintainable [capability].
-\item Integrated [automation or test suite] into [pipeline or delivery workflow], enabling fully automated [execution or verification].
-\item Led the [old tool] to [new tool] migration, including trade-off evaluation, implementation, and documentation.
-\item Standardized [naming, data, or process] conventions and introduced [approach], reducing [coupling, instability, or rework].
-\item Scripted reproducible [local or virtual environments] ([setup, rebuild, and reset]) in [scripting language] to improve developer experience.
-\item Maintained and extended [existing system]; analyzed [reports or failure patterns] to prioritize fixes.
+\item Built AI agent skills deployed in internal engineering repositories, enabling automated assistance for complex engineering and process workflows.
+\item Led a Lean-driven re-engineering of delivery infrastructure and processes, resolving accumulated technical debt and cutting total pipeline job time by more than 50\%.
+\item Redesigned delivery and engineering workflows, contributing to up to 20\% more features deployed per sprint.
+\item Restructured task distribution and handovers, reducing time consumption by around 30\% and eliminating duplicated work.
+\item Contributed to the architecture and testing of an embedded AI chatbot that helps users navigate the platform.
+\item Contributed to the architecture and testing of a RAG system letting users query their own uploaded documents.
+\item Drove integration of AI agents and services into product and engineering workflows.
+\item Collaborated on an in-house image-recognition application built on object detection: labeled and curated the training dataset, helped define detection classes, and ran and evaluated training and optimization tests.
+\item Designed and implemented a test framework in Playwright, including reusable helpers and utilities for scalable coverage.
+\item Integrated the automated test battery into GitLab CI pipeline jobs, enabling fully automated execution as part of the workflow.
+\item Led the Cypress to Playwright migration, including trade-off evaluation, implementation, and documentation.
+\item Standardized test naming and data conventions and introduced seed-driven data setup to reduce coupling and instability.
+\item Scripted reproducible local and virtual test environments (seed, rebuild, reinitialize services) in Shell/Bash to improve developer experience.
+\item Maintained and extended an existing automated test battery; analyzed reports and failure patterns to prioritize fixes.
 \end{itemize}
 
 \cvjob{[Previous Job Title], [Company]}{Mon 20XX - Mon 20XX}
 \cvcontext{[One-line company or initiative context.]}
 \begin{itemize}
-\item Founded [organization or initiative]: legal incorporation, administrative setup, governance structure, and ongoing compliance.
-\item Owned the full [entrepreneurial or operational] process from idea to execution with no prior institutional support.
-\item Coordinated partnerships with public and private institutions to fund and support [programmes or projects].
-\item Led [activities], [workshops], and [initiatives] for [community or audience].
+\item Founded a non-profit cooperative: legal incorporation, administrative setup, governance structure, and ongoing compliance.
+\item Owned the full entrepreneurial process from idea to operational execution with no prior institutional support.
+\item Coordinated partnerships with public and private institutions to fund and support community programmes.
+\item Led educational activities, community workshops, and public-space renovation initiatives.
 \item Organized and monitored internal procedures for consistent operational execution.
-\item Managed the full physical setup and operational launch of [space or operation].
+\item Managed the full physical setup and operational launch of a café/restaurant space and a nursing-school space.
 \end{itemize}
 
 \cvjob{[Earlier Job Title], [Company]}{Mon 20XX - Mon 20XX}
 \begin{itemize}
-\item Organized inventory, materials, and [logistics or storage] flows.
-\item Optimized [procedures], improving [metric] by up to [X]\%.
-\item Supported the full [operational cycle] ([picking, dispatch, transport, retrieval]); handled [specialized operational task].
-\item Performed [technical or assembly] support, including [task].
+\item Organized inventory, materials, and warehouse and storage flows.
+\item Optimized storage and transport procedures, improving handling and distribution time by up to 20\%.
+\item Supported the full logistics cycle (picking, dispatch, transport, retrieval); drove forklift for load handling.
+\item Performed technical assembly support, including ventilation conduit assembly.
 \end{itemize}
 
 \cvjob{[Earliest Job Title], [Company], [Country]}{Mon 20XX - Mon 20XX}
 \begin{itemize}
-\item Built [databases or reports] from publicly available information for [purpose].
-\item Conducted [outreach] for partnership opportunities.
-\item Produced documentation linking [stakeholders or partners].
+\item Built Excel databases from publicly available company information for business outreach.
+\item Conducted company and individual outreach for partnership opportunities.
+\item Produced documentation linking travel agencies and hospitality brands.
 \end{itemize}
 
 % ============================================================
-%   LANGUAGES  (one line, closes page 1 in tailored CVs)
+%   LANGUAGES  (PLACEHOLDERS - one line, closes page 1 in tailored
+%   CVs. Values must match the Languages table in config/gates.md.)
 % ============================================================
 
 \section{Languages}
@@ -227,114 +238,117 @@
 \newpage
 
 % ============================================================
-%   CORE COMPETENCIES  (COMPOSED PER ROLE - the bullets below are a
-%   WORKED EXAMPLE, NOT content to copy. A tailored CV rewrites all of
-%   them for its own posting: 5-7 bullets, bold label carrying the
-%   posting's own core term where truthful, body listing concrete
-%   items drawn from the SKILLS bank below and closing with what the
-%   competency buys THIS role. Every named tool, method, and metric
-%   must trace to this master or to the candidate profile.)
+%   CORE COMPETENCIES  (EXAMPLES - composed per role, never copied
+%   verbatim. A tailored CV rewrites all of them for its own posting:
+%   5-7 bullets, bold label carrying the posting's own core term where
+%   truthful, body listing concrete items drawn from the SKILLS bank
+%   below and closing with what the competency buys THIS role. Every
+%   named tool, method, and metric must trace to this master or to the
+%   candidate profile.)
 % ============================================================
 
 \section{Core Competencies}
 
 \begin{itemize}
-\cvcomp{[Process \& Delivery Re-Engineering]}{[Process analysis and mapping], [workflow re-engineering], and [technical-debt diagnosis and remediation] under [methodology]. Cut [primary metric] by more than [X]\% and supported [secondary outcome].}
-\cvcomp{[AI \& Tooling Integration]}{[LLM integration] and [AI agents], [RAG design and evaluation], [framework], and [local model deployment]. Shipped [AI capability] into [production context].}
-\cvcomp{[Platform \& Pipeline Engineering]}{[Pipeline optimization] and [feedback-loop reduction], [CI job integration], [test parallelization], and [containerized deployment]. Shortens the distance between a change and trustworthy feedback.}
-\cvcomp{[Quality \& Test Architecture]}{[End-to-end framework design], [reusable helpers and utilities], [seed-driven test data], [flaky-test mitigation], and [failure-pattern analysis]. Builds quality in early instead of inspecting it in late.}
-\cvcomp{[Software Engineering]}{[Language 1], [language 2], and [scripting] across [full-stack and automation work], from [a multi-tenant platform] to [a framework-free pipeline]. Delivers end to end: architecture, data model, API, UI, testing, and deploy.}
-\cvcomp{[Ownership \& Communication]}{[Initiative and autonomy], [root-cause-first problem solving], and [communication with technical and non-technical stakeholders]. [Concrete ownership example - what you started, ran, and delivered].}
+\cvcomp{Process \& Delivery Re-Engineering}{Process analysis and mapping, workflow re-engineering, waste identification, and technical-debt diagnosis and remediation under Lean Software Development. Cut total pipeline job time by more than 50\% and supported up to 20\% more features deployed per sprint.}
+\cvcomp{AI Integration \& LLM Engineering}{LLM integration and AI agents (Claude Code), RAG design and evaluation (recall@k benchmarking, golden sets), LangChain, ChromaDB, and local models via Ollama. Shipped AI agent skills, an embedded chatbot, and a RAG system into a production platform.}
+\cvcomp{CI/CD \& Engineering Effectiveness}{Pipeline optimization and feedback-loop reduction, CI job integration for test batteries, test parallelization, environment reproducibility, and containerized deployment (GitLab CI, Docker Compose). Shortens the distance between a commit and trustworthy feedback.}
+\cvcomp{Test Architecture \& Reliability}{End-to-end framework design in Playwright, reusable helpers and utilities, seed-driven test data, flaky-test mitigation, and failure-pattern analysis. Builds quality in early instead of inspecting it in late.}
+\cvcomp{Software Engineering}{Python, TypeScript/JavaScript, SQL, and Shell/Bash across full-stack and automation work, from a multi-tenant SaaS platform to a framework-free RAG pipeline. Delivers end to end: architecture, data model, API, UI, testing, and deploy.}
+\cvcomp{Ownership \& Communication}{Initiative and autonomy, root-cause-first problem solving, and communication with technical and non-technical stakeholders. Founded and ran a cooperative through its full operational lifecycle with no prior institutional support.}
 \end{itemize}
 
 % ============================================================
-%   SKILLS  (SOURCE POOL - the evidence bank Core Competencies is
-%   composed from. A tailored CV DELETES this whole section; it is
-%   never printed alongside Core Competencies.)
+%   SKILLS  (EXAMPLES - the source pool Core Competencies is composed
+%   from. A tailored CV DELETES this whole section; it is never printed
+%   alongside Core Competencies. Replace the items with your own; keep
+%   the category · item · item shape.)
 % ============================================================
 
 \section{Skills}
 
-\cvskill{[Process, Operations \& Continuous Improvement]}{[Process analysis and mapping] · [Workflow re-engineering] · [Operational efficiency] · [Waste identification and prioritization] · [Procedure standardization] · [Task ownership and handover design] · [KPI design and tracking] · [Lean Software Development] · [Technical debt diagnosis and remediation] · [Continuous improvement (PDCA / Kaizen)] · [Process automation (RPA)] · [Structured business-case analysis]}
-\cvskill{[Quality, Testing \& Reliability]}{[Software QA (manual and automated)] · [End-to-end test framework design] · [Reusable test helpers and utilities] · [API integration testing] · [Component-level unit testing] · [Test pyramid design and coverage rebalancing] · [Flaky test mitigation] · [Seed-driven test data] · [Failure-pattern and log analysis] · [Shift-left quality] · [Eval and benchmark harness design (golden sets, controlled A/B)]}
-\cvskill{[CI/CD, DevOps \& Delivery]}{[CI/CD foundations and practical application] · [Pipeline optimization and feedback-loop reduction] · [Build and test resource efficiency] · [CI job integration for test batteries] · [Test parallelization] · [Workflow governance] · [Local environment automation scripting] · [Environment reproducibility] · [Containerization and deployment (Docker, Docker Compose)] · [Tooling and migration assessment]}
-\cvskill{[Applied AI \& Machine Learning]}{[CNNs and image classification] · [Object detection] · [Sequence models] · [Transfer Learning] · [Hyperparameter optimization] · [LLM integration and AI agents] · [RAG system design, testing, and evaluation (recall@k benchmarking)] · [Vector databases] · [LangChain] · [Chatbot and embedded AI chat] · [Local LLM deployment] · [Prompt engineering] · [Deep-learning training practice] · [LLM guardrails and grounding enforcement] · [Agent harness engineering] · [Tool and function-calling design] · [Multi-agent orchestration] · [LLM observability and production monitoring]}
-\cvskill{[Security \& Defensive Engineering]}{[Offensive security] · [OSINT and footprinting] · [Vulnerability assessment and reporting] · [SIEM implementation and log centralization] · [Threat detection and alerting] · [Host-based intrusion detection] · [File integrity monitoring] · [Wazuh and Elastic Stack (ELK)] · [Data privacy and PII redaction pipeline design] · [Penetration testing methodology] · [Detection rule authoring and alert tuning]}
-\cvskill{[Immersive Tech, 3D \& Visualization]}{[Virtual and Augmented Reality] · [Digital Twins] · [3D modelling and printing] · [VTK 2D/3D/VR visualization] · [Unity (C\#)] · [Godot] · [Blender] · [VRChat SDK] · [Additive manufacturing and rapid prototyping]}
-\cvskill{[Data, Analysis \& Reporting]}{[Excel database creation and maintenance] · [Data structuring and reporting] · [SQL data handling] · [SPSS statistics] · [KPI and operational metric tracking] · [Analytical reasoning]}
-\cvskill{[Engineering Foundations]}{[Physics and Mathematics] · [Scientific computing and simulation (MATLAB)] · [Engineering drawings] · [Systems and computer hardware architecture] · [Elementary electrical circuits]}
-\cvskill{[Programming Languages]}{[Language 1] · [Language 2] · [Language 3] · [SQL] · [MATLAB] · [Shell / Bash] · [Full-stack web architecture]}
-\cvskill{[Tools \& Platforms]}{[Tool 1] · [Tool 2] · [Tool 3] · [Framework 1] · [Framework 2] · [Database 1] · [Cloud platform] · [Container and orchestration tooling] · [CI platform] · [Microsoft 365]}
-\cvskill{[Soft Skills]}{[Initiative and autonomy] · [Problem-solving (root-cause-first)] · [Fast learning and resilience] · [Leadership and team dynamics] · [Communication with technical and non-technical stakeholders] · [Adaptability]}
+\cvskill{Process, Operations \& Continuous Improvement}{Process analysis and mapping · Workflow re-engineering · Operational efficiency · Waste identification and prioritization · Procedure standardization · Task ownership and handover design · KPI design and tracking · Lean Software Development · Technical debt diagnosis and remediation · Continuous improvement (PDCA / Kaizen) · Process automation (RPA, UiPath) · Structured business-case analysis}
+\cvskill{QA, Testing \& Reliability}{Software QA (manual and automated) · End-to-end test framework design (Playwright) · Reusable test helpers and utilities · Cypress maintenance and extension · API integration testing · Component-level unit testing · Test pyramid design and coverage rebalancing · Flaky test mitigation · Seed-driven test data · Failure-pattern and log analysis · Shift-left quality · Eval and benchmark harness design (golden sets, controlled A/B)}
+\cvskill{CI/CD, DevOps \& Delivery}{CI/CD foundations and practical application · Pipeline optimization and feedback-loop reduction · Build and test resource efficiency · CI job integration for test batteries · Test parallelization · Workflow governance · Local environment automation scripting · Environment reproducibility · Containerization and deployment (Docker, Docker Compose) · Tooling and migration assessment}
+\cvskill{Applied AI \& Machine Learning}{CNNs and image classification · YOLO object detection · RNNs and sequence prediction · Transfer Learning · Hyperparameter optimization (Optuna) · LLM integration and AI agents · RAG system design, testing and evaluation (recall@k benchmarking) · Vector databases (Chroma) · LangChain · Chatbot and embedded AI chat · Local LLM deployment (Ollama, Gemma, Qwen) · Prompt engineering · Deep-learning training practice (dropout, batch normalization, augmentation, early stopping, class imbalance) · LLM guardrails and grounding enforcement · Agent harness engineering · Tool and function-calling design · Claude Code extensibility (hooks, slash commands, skills, subagents) · Multi-agent orchestration · AI system design · LLM observability and production monitoring}
+\cvskill{Cybersecurity \& Defensive Engineering}{Offensive security · OSINT and footprinting · Vulnerability assessment and reporting · SIEM implementation and log centralization · Threat detection and alerting · Host-based intrusion detection (HIDS) · File integrity monitoring · Wazuh and Elastic Stack (ELK) · Data privacy and PII redaction pipeline design · Penetration testing methodology · Wireless network assessment and MITM · Social engineering and authorized phishing simulation · Web application attack techniques · Detection rule authoring and alert tuning (Wazuh) · Data-layer authorization (PostgreSQL Row-Level Security)}
+\cvskill{Immersive Tech, 3D \& Visualization}{Virtual and Augmented Reality · Digital Twins · 3D modelling and printing · VTK 2D/3D/VR visualization · Unity (C\#) · Godot · Blender · VRChat SDK · Additive manufacturing and rapid prototyping}
+\cvskill{Data, Analysis \& Reporting}{Excel database creation and maintenance · Data structuring and reporting · SQL data handling · SPSS statistics · KPI and operational metric tracking · Analytical reasoning}
+\cvskill{Engineering Foundations}{Physics and Mathematics (classical and quantum mechanics) · Scientific computing and simulation (MATLAB) · Engineering drawings · Systems and computer hardware architecture · Elementary electrical circuits}
+\cvskill{Programming Languages}{Python · TypeScript · JavaScript · Java · C\# (Unity) · React Native · SQL Server / SQL · MATLAB · Shell / Bash · Assembly · C · Full-stack web architecture}
+\cvskill{Tools \& Platforms}{Playwright · Cypress · GitLab CI · Bash / Shell · Git · MS Project · Excel · SQL · SPSS · Unity · Godot · Blender · VRChat SDK · VTK · Ollama (Gemma, Qwen) · LangChain · ChromaDB · OpenClaw · Docker / Docker Compose · Cloudflare Tunnel · UiPath · Wazuh · Elastic Stack (ELK) · Microsoft 365 · Claude Code · Supabase · PostgreSQL · Drizzle ORM · Zod · pnpm workspaces · Vite · Vercel · Cloudflare R2 · Nmap · Wireshark · Metasploit · Aircrack-ng · Burp Suite · Postfix · Slack webhooks}
+\cvskill{Soft Skills}{Initiative and autonomy · Problem-solving (root-cause-first) · Fast learning and resilience · Leadership and team dynamics · Communication with technical and non-technical stakeholders · Adaptability}
 
 % ============================================================
-%   SELECTED PROJECTS  (always include; select 4-6 per role in
-%   tailored CVs, then close with the mandatory \cvmoreprojects
-%   "Also built:" line naming what was cut)
+%   SELECTED PROJECTS  (EXAMPLES - always include; select 4-6 per
+%   role in tailored CVs, then close with the mandatory
+%   \cvmoreprojects "Also built:" line naming what was cut. Keep the
+%   three-line shape: title, one-line tech stack, then what it is and
+%   what came of it.)
 % ============================================================
 
 \section{Selected Projects}
 
-\cvproject{[Project Title 1]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it - outcome, scale, or validation. Keep the stack out of this line.]}
+\cvproject{Lean-Driven QA \& CI/CD Re-Engineering Towards AI-Ready Infrastructures (Master's Thesis)}{CI/CD architecture · QA architecture · Test-suite optimization · Research}{Research into engineering infrastructures that stay scalable, understandable, and ready for AI integration: CI/CD architecture, QA integration, shift-left quality, flakiness dynamics, and toolchain-migration criteria.}
 
-\cvproject{[Project Title 2]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Big Data Analysis \& Representation: NO2 Air Pollution in VR (Bachelor's Final Project)}{OpenXR · VTK · Unity · 3D}{A VR system for visualizing large-scale NO2 air-pollution data across an urban area, with a user study comparing VR and desktop interaction.}
 
-\cvproject{[Project Title 3]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Niche-Field SaaS Marketing \& Admin Platform}{TypeScript · React · Express · PostgreSQL · Drizzle · Zod · Playwright · Vercel}{A multi-tenant SaaS platform helping businesses in a niche field market themselves and manage the information central to their operations. Built solo end to end: architecture, data model, API, UI, auth, testing, and deploy.}
 
-\cvproject{[Project Title 4]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Shared Expense Tracker (Serverless PWA)}{TypeScript · React · Supabase · PostgreSQL (RLS) · Google OAuth · Workbox}{A private, installable expense-tracking PWA for two people, deliberately built with no backend to maintain, with authorization enforced in the database rather than in the client. Delivered solo end to end.}
 
-\cvproject{[Project Title 5]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Production RAG Chatbot}{Python · LangChain · ChromaDB · Ollama · Docker Compose · Cloudflare Tunnel}{A publicly deployed chatbot answering visitor questions over a structured personal knowledge corpus. Every retrieval change is gated by a golden evaluation set; controlled A/B testing exposed a silent embedding-tokenizer defect degrading every measurement, and fixing it raised recall@5 from 56\% to 70\%. Ships behind an audience-filtering and PII-redaction safety gate.}
 
-\cvproject{[Project Title 6]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Support Ticket Auto-Reply: Guardrailed Agentic Pipeline}{Python · FastAPI · Pydantic · SQLite · pytest · Docker Compose · Ollama}{A service that answers support tickets automatically, or hands them to a human when it cannot answer safely. A bounded agentic tool-calling loop drafts replies grounded only in tool results, a post-hoc check verifies every number and identifier against those results, and every failure closes to a handoff with a full decision trace. Built test-first: 500+ automated tests and 15 ADRs.}
 
-\cvproject{[Project Title 7]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{From-Scratch Local RAG Pipeline}{Python · Ollama · nomic-embed-text · numpy}{A framework-free local RAG pipeline built to turn RAG theory into hands-on implementation. Built a recall@k evaluation harness, then caught the evaluation itself being too permissive: tightening the ground truth dropped apparent recall@1 from 71\% to 14\%, turning retrieval depth from an assumption into a measured choice.}
 
-\cvproject{[Project Title 8]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Structured Personal Knowledge Corpus}{Python · YAML · Markdown}{A single-source-of-truth corpus holding identity, skills, projects, and experience as tagged Markdown blocks, ending the drift of maintaining the same facts across a CV, a portfolio site, and an assistant's context. Schema-level audience gating keeps each export to what is appropriate.}
 
-\cvproject{[Project Title 9]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Agent-Driven Application Pipeline}{Python · LaTeX · TypeScript · Bun · Claude Code · Git}{An agent pipeline that turns a job posting into a fit evaluation, a tailored CV, and a cover letter, with a reviewer agent critiquing each draft. Its CV system tailors by verbatim selection from a verified master bank, making invented claims structurally impossible, and its profile syncs from the structured corpus above.}
 
-\cvproject{[Project Title 10]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{SIEM Implementation: Security Monitoring \& Detection}{Wazuh · Elasticsearch · Kibana · HIDS · FIM}{Designed and deployed a working SIEM centralizing log collection, with detection rules, alerting, file integrity monitoring, and host-based intrusion detection, validated against simulated attacks.}
 
-\cvproject{[Project Title 11]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Cybersecurity Assessment \& Footprinting (Client Project)}{OSINT · Offensive security · Vulnerability assessment}{External attack-surface mapping for a small cooperative; delivered a prioritized vulnerability and remediation report and presented it to the client.}
 
-\cvproject{[Project Title 12]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Digital Twin \& Animal Tracking App}{Kotlin · React Native · Firebase · A-Frame}{A mobile system keeping a live digital twin of tracked animals across large-scale environments, with two-way communication and an AR layer mapping positions in real space.}
 
-\cvproject{[Project Title 13]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{1:1 Architectural VR Walkthrough (Client Project)}{Unity · 3D modelling · Desktop + headset}{Accurate 1:1-scale 3D building models navigable on desktop and in VR, used by clients to plan interior decoration in a spatially accurate representation of their space.}
 
-\cvproject{[Project Title 14]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Mobile Client-Management App}{React Native · Firebase}{A mobile app letting a cooperative access and manage client information on the go, delivered end to end.}
 
-\cvproject{[Project Title 15]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Sign Language Recognition: Image-to-Text (Academic)}{Python · Computer vision · ML}{A computer-vision system reading sign-language gestures from images and converting them to text at 98\% classification accuracy.}
 
-\cvproject{[Project Title 16]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{CNN Match Classification (Academic)}{Python · CNNs · Transfer Learning · EfficientNetB0 · Optuna}{A multiclass-multilabel CNN over 4,100 spatial heatmap images predicting match outcome, player role, and duration; compared single-input, per-output, Transfer Learning, and Optuna-optimized architectures. Separate per-task models exposed interference in the shared base, and two-phase EfficientNetB0 fine-tuning gave the best win/loss accuracy.}
 
-\cvproject{[Project Title 17]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Further Academic ML \& Computing}{Python · YOLO · RNNs · MATLAB · SPSS}{YOLO multi-class object detection at scale; RNN sequence prediction; MATLAB physics and mathematics simulations; SPSS statistical analysis across research cases.}
 
-\cvproject{[Project Title 18]}{[Tech item] · [Tech item] · [Tech item]}{[What the project is and what came of it.]}
+\cvproject{Game Design \& Development and Maker Practice}{Unity · Godot · Blender · VRChat SDK · FDM printing}{Independent multi-engine game development with published content, plus an ongoing home 3D modelling and printing practice for rapid prototyping.}
 
 % --- Mandatory closing catch-all. In a tailored CV this line names the master
 % --- projects that did NOT make the selection above, so the section reads as a
 % --- selection. One rendered line; titles compressed to short descriptors;
 % --- never a project absent from this master.
-\cvmoreprojects{[a cut project], [a second cut project], and [a third cut project]. More at \href{https://your-portfolio.example.com}{your-portfolio.example.com}.}
+\cvmoreprojects{a SIEM implementation (Wazuh + ELK), a client cybersecurity assessment, a digital twin with an AR layer, 1:1 architectural VR walkthroughs, academic ML (sign-language recognition, CNN/YOLO), and independent game development. More at \href{https://your-portfolio.example.com}{your-portfolio.example.com}.}
 
 % ============================================================
-%   OTHER RELEVANT INFORMATION  (closes the CV; select 2-4 of the
-%   optional bullets in tailored CVs. The references bullet is
-%   MANDATORY and always leads the section. It never prints
-%   referee names or contact details.)
+%   OTHER RELEVANT INFORMATION  (EXAMPLES - closes the CV; select
+%   2-4 of the optional bullets in tailored CVs. The references
+%   bullet is MANDATORY and always leads the section. It never
+%   prints referee names or contact details.)
 % ============================================================
 
 \section{Other Relevant Information}
 
 \begin{itemize}
 \item Recommendation letter from [Reference Name, Title at Organization], available on request; additional references on request.
-\item International exposure: [travel, training courses, or time living abroad - keep only what adds signal].
-\item Award: [what it was for and what came of it].
-\item Volunteering: [community involvement, scope, and years].
-\item Certification: [qualification relevant to the posting].
-\item Writing: [blogs, publications, or documentation you maintain].
-\item Personal interest in [domain relevant to the posting]: [what you actually do with it] (surface only for adjacent roles).
-\item Personal maker practice: [building, prototyping, or craft] for iterative problem-solving.
+\item International exposure: travel across 20+ countries, training courses in multiple countries, and six months living abroad (Erasmus+).
+\item Founded a student-run radio station using governmental funds for school improvement; sourced and set up the equipment.
+\item 18+ years of Scouting across national and international activities, including World Scout Jamboree participation.
+\item Recurring food-bank volunteer and further volunteer work across forest conservation and animal welfare; community ambassador roles.
+\item Personal maker practice: home-based 3D modelling and printing for rapid prototyping and iterative problem-solving.
+\item Writing: two personal blogs on personal growth/psychology and creative writing.
+\item Personal interest in financial markets and portfolio management: equities and options trading, margin accounts, and risk/position sizing via a live brokerage account (surface only for finance-adjacent roles).
 \end{itemize}
 
 \end{document}
