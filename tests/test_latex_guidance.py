@@ -38,6 +38,16 @@ EXAMPLE_COVER = REPO / "applications" / "cover_example.tex"
 # The safe spelling `\item {[text]}` does not match.
 UNBRACED_BRACKET_ITEM = re.compile(r"\\item\s*\[")
 
+# An unescaped % starts a comment, so nothing after it compiles. The template
+# example documents this pitfall with a `\item [text]` inside a %% comment;
+# that is documentation, not a bullet, and must not trip the guard.
+LATEX_COMMENT = re.compile(r"(?<!\\)(?:\\\\)*%.*$")
+
+
+def latex_code(line, is_tex):
+    """Return the compiled part of a line: strip a comment from .tex sources."""
+    return LATEX_COMMENT.sub("", line) if is_tex else line
+
 # The escapes both guidance files must document. `%` is the load-bearing
 # one: it truncates silently. The others fail loudly or corrupt spacing.
 REQUIRED_ESCAPES = ["\\&", "\\%", "\\$", "\\#", "\\_"]
@@ -53,14 +63,36 @@ def section(text, heading):
     return match.group(1) if match else None
 
 
+class LatexCommentTests(unittest.TestCase):
+    """A commented example is documentation, not a compiled bullet."""
+
+    def test_tex_comment_is_stripped(self):
+        self.assertEqual(latex_code('%% pitfall: \\item [text]', True), "")
+        self.assertEqual(
+            latex_code("\\item real  % \\item [fake]", True), "\\item real  "
+        )
+
+    def test_escaped_percent_is_not_a_comment(self):
+        self.assertEqual(
+            latex_code("cut latency 40\\% \\item [kept]", True),
+            "cut latency 40\\% \\item [kept]",
+        )
+
+    def test_markdown_is_never_stripped(self):
+        self.assertEqual(
+            latex_code("100% of \\item [md]", False), "100% of \\item [md]"
+        )
+
+
 class TestBulletBracketTrap(unittest.TestCase):
     """F9: no document or template doc may teach the unbraced pattern."""
 
     def assert_no_unbraced_bracket_items(self, path):
+        is_tex = path.suffix == ".tex"
         offending = [
             f"{path.name}:{lineno}: {line.strip()}"
             for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1)
-            if UNBRACED_BRACKET_ITEM.search(line)
+            if UNBRACED_BRACKET_ITEM.search(latex_code(line, is_tex))
         ]
         self.assertEqual(
             offending,
