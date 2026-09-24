@@ -94,7 +94,7 @@ fix).
 | 0 | Preflight & handoff setup | ☑ done | merge `4b89ad6` into `personal` (part branch `port/part-00-preflight` @ `cfbc5fd`) | Baseline all-green (no pre-existing failures); `handoff` skill installed; no upstream code ported. |
 | 1 | Portal CLIs — wholesale refresh | ☑ done | merge `889f407` into `personal` (part branch `port/part-01-portal-clis` @ `9e12980`) | Method A take of `.agents/skills/`: 64 files, 6/6 CLIs green (312 tests, no network). Also ported `cffacfd` (#288) frontmatter — the four Danish portals now ship `enabled: false` (correct for this fork's PT market). `cffacfd`'s `setup.md` half deferred to Part 11 (now in its table). |
 | 2 | Cross-portal contract, settings, CI discovery | ☑ done | merge `4a91964` into `personal` (part branch `port/part-02-contract-settings-ci` @ `d696a88`) | Contract test (`db8312948`) green against all six CLIs; `.claude/settings.json` scoped (A) with `security_guards.py` mirroring the allowlist; `discover-clis` added to CI (`f658bb6f9`), fork `applications/` paths and Tykelar placeholder condition preserved. Also took `f658bb6f9`'s `add-portal.md` note (same commit; no other part covered it). |
-| 3 | Salary tooling (+ UTF-8 stdout) | ☐ todo | | |
+| 3 | Salary tooling (+ UTF-8 stdout) | ☑ done | merge `PENDING` into `personal` (part branch `port/part-03-salary-tooling` @ `4cd5c16`) | Method A take of the salary files (untouched `v1.4.0` copies): `salary_lookup.py`, `tools/convert_salary_excel.py`, three test files, + new `tests/test_convert_salary_excel_integration.py`. 112 salary tests green; full suite 271 (skipped=1). UTF-8 guards self-contained in both tools (salary files portion of `ba4f2397a`). |
 | 4 | PDF tooling & ATS verification stack | ☐ todo | | |
 | 5 | Deadline persistence end-to-end | ☐ todo | | |
 | 6 | seen_jobs provenance & scrape behavior | ☐ todo | | |
@@ -251,7 +251,11 @@ The integration test needs optional `openpyxl`; it must skip (not fail) when abs
 **DoD:** all salary tests green; `salary_lookup.py` normalizes `A.M.B.A.`; US/UK and
 Danish number forms parse; missing `openpyxl` skips the two integration cases.
 
-**Handoff:** next = 4.
+**Handoff:** next = 4. Carried forward: upstream's `tests/test_tools_utf8_output.py`
+spans all six tools (`rank_state.py`, `job_key.py`, `verify_pdf.py`,
+`verify_layout.py`, plus the two salary tools); take it in the last part that
+completes those tools (Part 7 for `rank_state`/`job_key`, Part 4 for
+`verify_pdf`/`verify_layout`) or in Part 13.
 
 ---
 

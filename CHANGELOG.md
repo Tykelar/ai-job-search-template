@@ -105,6 +105,20 @@ per-file diff commands.
   `.agents/skills/*/cli/package.json` and a portal added by `/add-portal` is
   typechecked and tested with no workflow edit. Upstream refs: `db8312948`
   (#344), `2d636c50b` (#396), `f658bb6f9` (#310).
+- **Part 3 — salary tooling & UTF-8 stdout** (commit `4cd5c16`). Method A take of
+  `salary_lookup.py`, `tools/convert_salary_excel.py`, and their three test files
+  (all untouched `v1.4.0` copies), plus the new
+  `tests/test_convert_salary_excel_integration.py`. Fixes `A.M.B.A.` dotted legal
+  suffix normalization, null metadata/categories handling, count/index header
+  corroboration across cells, dot-thousands and US/UK + Danish number forms
+  (locale chosen by the last separator), compound count/index headers, the
+  count/index pair fallback, and the privacy-suppression footnote. Both tools now
+  reconfigure stdout/stderr to UTF-8 on entry, so non-Latin company names no
+  longer crash a piped Windows run. Upstream refs: `7d00ec792`, `9833a5dcb`,
+  `7f709eda5`, `621ce5ab3`, `1c19f6c45`, `968fb1bd7`, `b91c6125e`, `362ef6a52`,
+  `ba4f2397a` (salary files portion; the remaining tools of that commit land in
+  Parts 4 and 7, with the full `tests/test_tools_utf8_output.py` once all six
+  tools exist).
 
 ## [1.0.0] - 2026-07-22
 
