@@ -91,7 +91,7 @@ fix).
 
 | Part | Title | Status | Branch / commit | Notes |
 |---|---|---|---|---|
-| 0 | Preflight & handoff setup | ☑ done | `personal` @ `4b89ad6` (part branch `port/part-00-preflight` @ `cfbc5fd`) | Baseline all-green (no pre-existing failures); `handoff` skill installed; no upstream code ported. |
+| 0 | Preflight & handoff setup | ☑ done | merge `4b89ad6` into `personal` (part branch `port/part-00-preflight` @ `cfbc5fd`) | Baseline all-green (no pre-existing failures); `handoff` skill installed; no upstream code ported. |
 | 1 | Portal CLIs — wholesale refresh | ☐ todo | | |
 | 2 | Cross-portal contract, settings, CI discovery | ☐ todo | | |
 | 3 | Salary tooling (+ UTF-8 stdout) | ☐ todo | | |
