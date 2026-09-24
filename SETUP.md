@@ -141,15 +141,17 @@ Copy-Item applications\cover.cls, applications\OpenFonts -Destination $SmokeDir 
 Push-Location $SmokeDir; xelatex -interaction=nonstopmode -halt-on-error cover_smoke.tex; Pop-Location
 ```
 
-### Optional: pdftotext (for the ATS check)
+### Optional: ATS text extraction (pypdf, then pdftotext)
 
-`/apply` runs an ATS parseability check on the compiled CV: it extracts the PDF's text layer and verifies contact details, reading order, and keyword coverage the way an applicant-tracking system sees them. This uses `pdftotext` from [poppler](https://poppler.freedesktop.org/), which is not part of TeX distributions:
+`/apply` runs an ATS parseability check on the compiled CV: it extracts the PDF's text layer and verifies contact details, reading order, and keyword coverage the way an applicant-tracking system sees them.
+
+The default extractor is **pypdf** (BSD, `pip install pypdf`). Poppler `pdftotext` remains an optional fallback:
 
 - **macOS:** `brew install poppler`
 - **Debian/Ubuntu:** `sudo apt install poppler-utils`
 - **Windows:** `choco install poppler`
 
-If `pdftotext` is missing, `/apply` skips the mechanical check with a warning and falls back to a visual keyword review — everything else works normally.
+If a command still uses `pdftotext -layout`, it must pass `-enc UTF-8` as well (Xpdf-based builds default to Latin-1 output). If **neither** extractor is available, `/apply` skips the mechanical check with a warning and falls back to a visual keyword review — everything else works normally.
 
 ## 2. Fork and clone
 

@@ -346,14 +346,27 @@ If either compile fails, fix the error and re-compile until clean.
 
 ### 5b. Inspect layout
 
-Read both PDFs via the Read tool:
+**Measure first, then look.** A visual read catches gross breakage but cannot tell you that a page is 40% empty, and a hole left by an entry that could not fit survives both a clean compile and a correct page count:
+
+```bash
+python tools/verify_layout.py applications/<NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.pdf
+python tools/verify_layout.py applications/<NN>_<company>_<role>/CL_<CVNameSlug>_<company>_<role>.pdf
+```
+
+The script reports, per page, where the text starts and stops, bottom whitespace as a share of page height, and the largest vertical gap between lines. It exits 1 on: a hole over 100pt (~7 blank lines), a non-final page ending more than 25% early, body text colliding with the page-number footer, a final page more than 35% empty, and an entry header or section heading stranded at a page break. Page count is **not** checked here — that is `verify_pdf.py --pages`'s job, and Step 5d covers the text layer.
+
+The hole check is the one a visual read misses: an entry that does not fit in the space left moves whole to the next page and leaves a gap behind, while the document still compiles and still reports the right page count. Fix a hole by shortening the entry that follows it or by selecting differently, not by stretching the page.
+
+If Poppler is missing, or the `pdftotext` first in PATH is the xpdf build Git for Windows ships (no `-bbox`), the script exits 2 with `skipped:` — note the degraded mode in the Step 6 report and rely on the visual inspection alone. Exit 2 is never a layout verdict. The thresholds are calibrated for the compact single-column template; a template registered via `/add-template` may report a phantom hole above a footer the 90pt band does not cover.
+
+Then read both PDFs via the Read tool:
 
 - CV: `applications/<NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.pdf`
 - Cover letter: `applications/<NN>_<company>_<role>/CL_<CVNameSlug>_<company>_<role>.pdf`
 
 **Verify every item in CLAUDE.md's *Compiled PDF verification* section against the rendered pages** — page count, the Languages / Core Competencies break, the four-project floor, widows, the `Also built:` and `Tech stack:` lines, orphaned `\cvjob` headers, page fit, and the cover letter's single page and bullet font. That section is the single set of criteria and is **not restated here**, so it cannot drift from what Step 6 reports against. Read it from CLAUDE.md, which is already in context.
 
-Two template mechanics that make those checks readable: the `\newpage` before Core Competencies makes the break deterministic, so page 1 either fits above it or overflows visibly rather than reflowing; and a wrapped `Tech stack:` line shows up in `pdftotext -layout` as a continuation line before the description, which is easier to catch than in the rendered page.
+Two template mechanics that make those checks readable: the `\newpage` before Core Competencies makes the break deterministic, so page 1 either fits above it or overflows visibly rather than reflowing; and a wrapped `Tech stack:` line shows up in `pdftotext -layout -enc UTF-8` as a continuation line before the description, which is easier to catch than in the rendered page.
 
 
 ### 5c. Iterate until clean
@@ -374,15 +387,20 @@ Do not proceed to Step 6 until both PDFs pass inspection.
 
 An ATS parser reads the PDF's embedded **text layer**, not the rendered page — a CV that passed visual inspection can still extract as garbage (icon glyphs where the contact details should be, scrambled reading order in multi-column layouts). This step verifies what a parser actually sees. It applies to the **CV only**; cover letters rarely go through keyword screening.
 
-**Availability check:** run `pdftotext -v`. `pdftotext` (poppler) is an optional dependency, not part of TeX distributions. If it is missing, print a one-line warning that the mechanical parse check is skipped, do the keyword-coverage check (item 3 below) against your visual Read of the PDF instead, and note the degraded mode in the Step 6 report. Same graceful-skip pattern as the salary lookup.
+**Availability check:** extract with `python tools/verify_pdf.py` (tries **pypdf** first — BSD, `pip install pypdf` — then Poppler `pdftotext`). If both are missing, print a one-line warning that the mechanical parse check is skipped, do the keyword-coverage check (item 3 below) against your visual Read of the PDF instead, and note the degraded mode in the Step 6 report. Same graceful-skip pattern as the salary lookup. If a documented fallback still shells out to `pdftotext -layout`, keep the `-enc UTF-8` flag: Xpdf-based builds default to Latin-1 output, so a correct non-ASCII CV fails the replacement-character check below for no real reason.
 
 **1. Extract the text layer:**
 
 ```bash
-cd applications/<NN>_<company>_<role> && pdftotext -layout CV_<CVNameSlug>_<company>_<role>.pdf CV_<CVNameSlug>_<company>_<role>.txt
+python tools/verify_pdf.py applications/<NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.pdf \
+  --dump-text applications/<NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.txt
 ```
 
-Read the `.txt` file.
+The command prints `extractor: pypdf` or `extractor: pdftotext`. Record that name in the Step 6 report. Read the `.txt` file. If that tool is unavailable, the Poppler fallback is:
+
+```bash
+cd applications/<NN>_<company>_<role> && pdftotext -layout -enc UTF-8 CV_<CVNameSlug>_<company>_<role>.pdf CV_<CVNameSlug>_<company>_<role>.txt
+```
 
 **2. Parseability checks.** Verify the extracted text against the parseability items in CLAUDE.md's *ATS & keyword verification* section — clean extraction with no `(cid:NNN)` or `�` runs, email and phone as literal text, reading order matching the visual order, dates present. The criteria live there and are **not duplicated here**.
 
@@ -401,6 +419,8 @@ Failures here are template-level problems: fix them in the `.tex` (e.g. print th
 - **synonym-only** — the concept is present under a different term. Prefer moving the posting's exact term into a Core Competencies label or item where truthful (ATS keyword matches are often literal); otherwise a selected bullet may be lightly retermed where truthfully equivalent, or the About Me may carry it.
 - **missing (have it)** — the profile shows the candidate genuinely has this skill but the CV never says it: name it in the relevant Core Competencies bullet (sourced from the master skill row that carries it) or surface the master experience bullet/project that does, then re-run 5a–5c. If no master line carries it, report it to the user as a master-coverage gap to fix in the master (and in its source, if you keep one), then regenerate.
 - **missing (gap)** — a genuine gap: leave it missing. **Never stuff keywords.** This is the same honesty rule the reviewer follows — a gap gets acknowledged in the cover letter's framing, not hidden in the CV.
+
+> **Note:** a multi-word phrase reported missing may be a punctuation-spacing artifact between extractors (pypdf sometimes inserts spaces around punctuation that Poppler does not). Re-check against the other extractor before concluding the text is absent.
 
 **4. Clean up:** delete the extracted `.txt` file.
 

@@ -1,5 +1,5 @@
 ---
-framework_version: 2.4.0
+framework_version: 2.5.0
 ---
 
 # CV Template and Tailoring Guide (compact style, verbatim-first selection)
@@ -57,12 +57,39 @@ Semantic commands (defined in the master's preamble — a tailored CV never need
 
 ### Bullets must never start with a bare `[`
 
-`\item [text]` is parsed as `\item`'s **optional label**, so the text renders in the
-left margin and clips off the page instead of appearing in the bullet. Start every
-`\item` with a word or a command (`\textbf{...}`) - never with a bare `[`. This has
-bitten the example master once; the compile-and-inspect loop below is what catches it
-(a clipped bullet shows as a fragment in `pdftotext -layout` output, e.g. `onsibility
-bullet.`).
+A bullet whose text begins with `[` is parsed as the item's **optional label**, so the
+text renders in the left margin and clips off the page instead of appearing in the
+bullet — write `\item {[text]}` to brace it. Start every `\item` with a word or a
+command (`\textbf{...}`) - never with a bare `[`. This has bitten the example master
+once; the compile-and-inspect loop below is what catches it (a clipped bullet shows as
+a fragment in `pdftotext -layout -enc UTF-8` output, e.g. `onsibility bullet.`).
+
+### LaTeX Special Characters (important)
+
+Postings and profile data arrive as plain text; the CV is LaTeX. Escape these wherever
+they land in body text — company names, achievement bullets, skill lists:
+
+| Character | Write | Typical trigger |
+|---|---|---|
+| `&` | `\&` | company names: Bang \& Olufsen, Brüel \& Kjær, H\&M |
+| `%` | `\%` | quantified achievements: "cut latency by 40\%" |
+| `$` | `\$` | salary and cost figures |
+| `#` | `\#` | "ranked \#1", C\# |
+| `_` | `\_` | file names, code identifiers |
+| `~` | `\textasciitilde{}` | URLs, "approx. 5 years" tildes |
+| `^` | `\textasciicircum{}` | version strings, math |
+
+Two failure modes deserve special care:
+
+- **`%` fails silently.** An unescaped `%` starts a LaTeX comment: the compile succeeds
+  with zero errors, and everything after the `%` on that line vanishes from the PDF.
+  `Cut inference latency by 40% and saved EUR 2M annually` renders as "Cut inference
+  latency by 40" — the bullet keeps its impressive-looking fragment and loses the actual
+  result. Quantified achievement bullets are exactly where the guidance steers you ("use
+  numbers where possible"), so check every `%` in every bullet before compiling. This is
+  the reason the section exists: a clean compile with half the bullet silently gone.
+- **`&` fails loudly** (alignment-tab errors, `Missing } inserted`). The compile loop
+  catches it, but escape employer names up front rather than debugging the compile.
 
 ### The mandatory project tech-stack line
 
@@ -359,8 +386,18 @@ content is verbatim master content and only changes language if the master does.
 
 ## ATS parseability
 
-After the layout passes, verify the text layer (`pdftotext -layout`; poppler is optional —
-if missing, skip the mechanical check with a warning):
+After the layout passes, verify the text layer:
+
+```bash
+python tools/verify_pdf.py applications/<NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.pdf \
+  --dump-text applications/<NN>_<company>_<role>/CV_<CVNameSlug>_<company>_<role>.txt
+```
+
+`verify_pdf.py` tries **pypdf** first (`pip install pypdf`, BSD licence), then falls back
+to Poppler `pdftotext`. If a documented fallback still shells out to it, keep the
+`-enc UTF-8` flag: Xpdf-based builds default to Latin-1 output, so a correct non-ASCII CV
+reads back as replacement characters and fails the check below for no real reason. If
+both extractors are missing, skip the mechanical check with a warning:
 
 - **Contact details as literal text** — the template prints the email address as text (no
   icons); it must survive extraction.
@@ -372,7 +409,13 @@ if missing, skip the mechanical check with a warning):
   extraction, in the posting's language. Coverage improves by composition and selection
   (see above); genuine gaps stay visible and are never stuffed. Check this **harder than
   before**: with the Skills bank no longer printed, a term the CV used to pick up for free
-  from a 20-item skill row now only lands if a competency bullet names it.
+  from a 20-item skill row now only lands if a competency bullet names it. When checking
+  a term mechanically, `verify_pdf.py --contains` folds both sides for whitespace, Unicode
+  normalization (NFC) and LaTeX's typographic substitutions before comparing — `'`
+  reaches the text layer as U+2019 and `--` as U+2013, so `--contains "Master's degree"`
+  and `--contains "2016-2024"` match what the template actually renders. The dumped
+  `.txt` is never folded: it is the raw layer the ATS sees, which is why the date-range
+  check below reads the dump, not `--contains`.
 - **Date ranges parse** — every `\cvjob` and `\cvedu` entry in the extraction shows a start
   *and* an end separated by an ASCII hyphen (see below).
 

@@ -103,11 +103,38 @@ jobs:
           fail-on-severity: high
 
   latex-smoke:
-    name: Compile example CV and cover letter
+    # Two legs. texlive/texlive:latest tracks current TeX Live; debian:bookworm
+    # compiles on apt-packaged TeX Live 2022, the environment a user following
+    # the README's Debian/Ubuntu apt path actually has. This fork's compact
+    # template builds with lualatex + fontspec and loads fontawesome5 and the
+    # Carlito system font, so the bookworm leg names those apt packages.
+    name: Compile example CV and cover letter (${{ matrix.leg.name }})
     runs-on: ubuntu-latest
-    container: texlive/texlive:latest
+    container: ${{ matrix.leg.container }}
+    strategy:
+      fail-fast: false
+      matrix:
+        leg:
+          - name: texlive-latest
+            container: texlive/texlive:latest
+          - name: debian-bookworm
+            container: debian:bookworm
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - name: Install apt-packaged TeX Live (bookworm leg)
+        if: matrix.leg.name == 'debian-bookworm'
+        # --no-install-recommends keeps the leg lean, so the packages must be
+        # named explicitly: texlive-luatex (lualatex), texlive-latex-extra
+        # (enumitem, titlesec, needspace), texlive-fonts-extra (fontawesome5),
+        # fonts-crosextra-carlito (the CV's \setmainfont{Carlito}), and
+        # texlive-fonts-recommended (hyperref's xetex driver probes the pzdr
+        # metrics for the xelatex cover letter).
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            texlive-luatex texlive-latex-extra texlive-xetex \
+            texlive-fonts-extra texlive-fonts-recommended \
+            fonts-crosextra-carlito poppler-utils python3
       - name: Install PDF inspection tools
         run: |
           if ! command -v pdfinfo >/dev/null || ! command -v pdftotext >/dev/null; then
@@ -135,9 +162,16 @@ jobs:
             exit 1
           fi
       - name: Verify extractable PDF text
+        # --contains is the fork's analogue of upstream's "Achievement survives
+        # pdftotext" guard: a template-mechanical token that only appears in the
+        # PDF if the text layer is intact. "Tech stack:" is rendered by
+        # \cvproject on every project entry, so its absence means the entry was
+        # clipped or the text layer broke.
         run: |
-          python3 tools/verify_pdf.py applications/main_example.pdf --min-chars 100
-          python3 tools/verify_pdf.py applications/cover_example.pdf --min-chars 100
+          python3 tools/verify_pdf.py applications/main_example.pdf --min-chars 100 \
+            --contains 'Tech stack:'
+          python3 tools/verify_pdf.py applications/cover_example.pdf --min-chars 100 \
+            --contains 'Dear'
       - name: Assert stock PDF structure (upstream template only)
         if: github.repository == 'MadsLorentzen/ai-job-search'
         run: |

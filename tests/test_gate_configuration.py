@@ -328,7 +328,7 @@ class OneVerificationChecklist(unittest.TestCase):
         """Deduplicating criteria must not strip the how-to: compile commands,
         extraction, and the keyword-coverage table stay in /apply."""
         text = read(APPLY)
-        for fragment in ("pdftotext -layout", "lualatex", "xelatex", "Keyword coverage"):
+        for fragment in ("verify_pdf.py", "pdftotext -layout", "lualatex", "xelatex", "Keyword coverage"):
             self.assertIn(fragment, text, f"/apply must retain the {fragment} procedure")
 
 
